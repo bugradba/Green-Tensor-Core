@@ -93,7 +93,65 @@ def test_simple_cnn():
     print(f"PIM vs GPU Enerji Tasarrufu: %{(1 - stats_pim8['energy_total_mj']/stats_gpu['total_energy_mj'])*100:.1f}")
     print(f"PIM vs GPU Hız Artışı: {stats_gpu['total_latency_ms'] / stats_pim8['latency_ms']:.2f}x")
 
+
+def test_advanced_hybrid():
+    """Katman Bazlı (Layer-wise) Hibrit Test"""
+    from pim_simulator import PIMArray
+    from baseline_models import GPUBaseline
+    from hybrid_scheduler import HybridSystem
+
+    print("\n" + "="*50)
+    print("GELİŞMİŞ KATMAN BAZLI HİBRİT TEST")
+    print("="*50)
+
+    # Sistemleri Hazırla
+    pim = PIMArray()
+    gpu = GPUBaseline()
+    scheduler = HybridSystem(pim, gpu)
+
+    # Sanal bir AI Modeli Oluştur (Liste olarak)
+    # Bir Conv2D -> ReLU -> Linear katmanlı model simülasyonu
+    fake_model = [
+        {
+            'name': 'conv1', 
+            'type': 'Conv2D', 
+            'input': (3, 227, 227), 
+            'kernel': (96, 3, 11, 11)
+        },
+        {
+            'name': 'relu1', 
+            'type': 'ReLU'
+        },
+        {
+            'name': 'fc1', 
+            'type': 'Linear', 
+            'in_features': 9216, 
+            'out_features': 4096
+        }
+    ]
+
+    # Analiz Et ve Çalıştır
+    input_data_size_mb = 1.5 # Örnek veri boyutu
+    plan, total_e, total_l = scheduler.analyze_model_layers(fake_model, input_data_size_mb)
+
+    # Sonuçları Yazdır
+    print(f"\n{'Katman':<10} {'Tip':<10} {'Cihaz':<10} {'Enerji (mJ)':<15} {'Sebep'}")
+    print("-" * 80)
+    
+    for p in plan:
+        print(f"{p['layer']:<10} {p['type']:<10} {p['device']:<10} {p['energy']:<15.4f} {p['reason']}")
+    
+    print("-" * 80)
+    print(f"TOPLAM ENERJİ: {total_e:.2f} mJ")
+    print(f"TOPLAM SÜRE:   {total_l:.2f} ms")
+
+if __name__ == "__main__":
+    # Diğer testler...
+    test_advanced_hybrid() # <-- Bunu eklemeyi unutma
+
+# Ana test fonksiyonuna ekleyin
 if __name__ == "__main__":
     test_pim_core()
-    test_simple_cnn()
+    test_simple_cnn() 
     test_pim_cluster()
+    test_advanced_hybrid() 
