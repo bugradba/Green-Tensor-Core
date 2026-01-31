@@ -1,385 +1,294 @@
-"""
-Q-Learning Based Adaptive Scheduler for PIM/GPU Hybrid System
+from Q_Learning.adaptive_scheduler import AdaptiveQLearningScheduler 
+from pim_simulator import PIMArray
+from baseline_models import GPUBaseline, CPUBaseline
 
-Bu modül, iş yükü özelliklerine göre PIM veya GPU seçimini öğrenir.
-Geçmiş deneyimlerden reward alarak optimal kararlar verir.
-
-State: (workload_size_category, layer_type, deadline_constraint)
-Action: {PIM, GPU, HYBRID}
-Reward: energy_saved - latency_penalty
-"""
-
-import numpy as np
-import json
-from collections import defaultdict
-
-class AdaptiveQLearningScheduler:
+def test_pim_core():
     """
-    Q-Learning tabanlı akıllı scheduler.
-
-    Öğrenme süreci:
-    1. Başlangıçta rastgele kararlar verir (exploration)
-    2. Her karar sonrası reward alır (enerji tasarrufu - gecikme cezası)
-    3. Q-table güncellenir
-    4. Zaman içinde optimal stratejiyi öğrenir (exploitation)
+    Tek core test et
     """
+    from pim_simulator import PIM_Core
 
-    def __init__(self,
-                 learning_rate=0.1,
-                 discount_factor=0.9,
-                 epsilon=0.3,
-                 energy_weight=0.7,
-                 latency_weight=0.3):
-        """
-        Args:
-            learning_rate (alpha): Q-value güncelleme hızı [0-1]
-            discount_factor (gamma): Gelecek reward'ların önemi [0-1]
-            epsilon: Exploration oranı (rastgele aksiyon alma) [0-1]
-            energy_weight: Enerji tasarrufunun reward'daki ağırlığı
-            latency_weight: Gecikme cezasının reward'daki ağırlığı
-        """
-        # Hyperparameters
-        self.alpha = learning_rate
-        self.gamma = discount_factor
-        self.epsilon = epsilon  # Exploration rate
-        
-        self.energy_weight = energy_weight
-        self.latency_weight = latency_weight
-        
-        # Q-Table: Q(state, action) -> expected reward
-        # State: (workload_category, layer_type, deadline_category)
-        # Action: 0=PIM, 1=GPU, 2=HYBRID
-        self.q_table = defaultdict(lambda: np.zeros(3))
-        
-        # Action mapping
-        self.actions = ['PIM', 'GPU', 'HYBRID']
-        self.action_to_idx = {a: i for i, a in enumerate(self.actions)}
-        
-        # Learning statistics
-        self.episode_count = 0
-        self.total_reward = 0
-        self.action_history = []
-        self.reward_history = []
+    core = PIM_Core()
+    result, energy, latency = core.multiply_4bit(15, 15)
 
-    def _discretize_state(self, workload_size, layer_type, deadline_ms=None):
-        """
-        Continuous state'i discrete kategorilere dönüştür.
-        
-        Args:
-            workload_size: İşlem sayısı
-            layer_type: 'Conv', 'FC', 'ReLU', vs.
-            deadline_ms: Gecikme kısıtı (ms)
-        
-        Returns:
-            state: (workload_cat, layer_type, deadline_cat) tuple
-        """
-        # Workload kategorisi
-        if workload_size < 100000:
-            workload_cat = 'small'
-        elif workload_size < 10000000:
-            workload_cat = 'medium'
-        else:
-            workload_cat = 'large'
-        
-        # Layer type (doğrudan kullan)
-        layer_cat = layer_type
-        
-        # Deadline kategorisi
-        if deadline_ms is None:
-            deadline_cat = 'none'
-        elif deadline_ms < 10:
-            deadline_cat = 'strict'  # <10ms (real-time)
-        elif deadline_ms < 50:
-            deadline_cat = 'moderate'  # 10-50ms
-        else:
-            deadline_cat = 'relaxed'  # >50ms
-        
-        return (workload_cat, layer_cat, deadline_cat)
+    print("---- PIM Core Test ----")
+    print(f"15 x 15 = {result}")
+    print(f"Enerji: {energy:.2f} pJ")
+    print(f"Gecikme: {latency:.2f} ns")
+    print() 
+
+def test_pim_cluster():
+    """Cluster MAC işlemini test et (pPIM uyumlu analiz)."""
+    from pim_simulator import PIMCluster
     
-    def select_action(self, state, training=True):
-        """
-        Epsilon-greedy policy ile action seç.
-        
-        Args:
-            state: Mevcut durum
-            training: True ise exploration yapar
-        
-        Returns:
-            action: 'PIM', 'GPU', veya 'HYBRID'
-        """
-        if training and np.random.random() < self.epsilon:
-            # Exploration: Rastgele action seç
-            action_idx = np.random.choice(3)
-        else:
-            # Exploitation: En yüksek Q-value'lu action seç
-            q_values = self.q_table[state]
-            action_idx = np.argmax(q_values)
-        
-        return self.actions[action_idx]
+    print("\n---- PIM Cluster Test ----")
+
+    # Cluster'ı başlat
+    cluster = PIMCluster()
+
+    # Test değerleri
+    a, b = 255, 200
+    expected_result = a * b  # Referans (8-bit tam doğruluk)
+
+    # -------------------------
+    # 1) 8-bit Precision
+    # -------------------------
+    result_8bit, energy_8bit, latency_8bit = cluster.mac_8bit(a, b, precision=8)
+
+    print(f"{a} x {b} (8-bit): {result_8bit}")
+    print(f"  Enerji: {energy_8bit:.2f} pJ, Gecikme: {latency_8bit:.2f} ns")
+
+    # -------------------------
+    # 2) 4-bit Precision Scaling
+    # -------------------------
+    result_4bit, energy_4bit, latency_4bit = cluster.mac_8bit(a, b, precision=4)
+
+    print(f"{a} x {b} (4-bit approx): {result_4bit}")
+    print(f"  Enerji: {energy_4bit:.2f} pJ, Gecikme: {latency_4bit:.2f} ns")
+
+    # -------------------------
+    # 3) DOĞRU ACCURACY ANALİZİ
+    # (pPIM paper uyumlu)
+    # -------------------------
+    ideal_4bit = ((a >> 4) * (b >> 4)) << 8
+
+    accuracy = (result_4bit / ideal_4bit) * 100 if ideal_4bit > 0 else 0
+    error = 100 - accuracy
+
+    print(f"  4-bit Scaled Accuracy: %{accuracy:.1f}")
+    print(f"  Quantization Error: %{error:.1f}")
+
+    # -------------------------
+    # 4) Enerji Tasarrufu
+    # -------------------------
+    if energy_8bit > 0:
+        savings = (1 - energy_4bit / energy_8bit) * 100
+        print(f"  Enerji Tasarrufu: %{savings:.1f}")
+
+    print("-" * 40)
+
+def test_simple_cnn():
+    """Basit bir CNN katmanını simüle et."""
+    pim = PIMArray(num_clusters=256)
+    gpu = GPUBaseline()
+    cpu = CPUBaseline()
+
+    # Örnek: AlexNet'in ilk conv katmanı
+    # Input: (3, 227, 227), Kernel: (96, 3, 11, 11)
+
+    input_shape = (3, 227, 227)
+    kernel_shape = (96, 3, 11, 11)
+
+    print("----  CNN Katmanı (AlexNet Conv1) ----")
+    print(f"Input: {input_shape}, Kernel: {kernel_shape}")
+    print()
+
+    # PIM 8-bit
+    stats_pim8 = pim.convolution_layer(input_shape, kernel_shape, precision=8)
+    print("PIM (8-bit):")
+    print(f"  Enerji: {stats_pim8['energy_total_mj']:.2f} mJ")
+    print(f"  Gecikme: {stats_pim8['latency_ms']:.2f} ms")
+    print(f"  Güç: {stats_pim8['power_mw']:.2f} mW")
+    print()
     
-    def calculate_reward(self, energy_pim, energy_gpu, 
-                        latency_pim, latency_gpu, 
-                        chosen_action, deadline_ms=None):
-        """
-        Reward fonksiyonu: enerji tasarrufu - gecikme cezası (BALANCED)
-        
-        Reward yapısı:
-        - Enerji tasarrufu: pozitif reward (0-100)
-        - Deadline ihlali: büyük negatif reward (-100)
-        - Göreceli yavaşlık: küçük ceza (-20)
-        
-        Args:
-            energy_pim, energy_gpu: PIM ve GPU enerjisi (mJ)
-            latency_pim, latency_gpu: PIM ve GPU gecikmesi (ms)
-            chosen_action: Seçilen aksiyon
-            deadline_ms: Gecikme kısıtı
-        
-        Returns:
-            reward: Toplam reward değeri (-100 ~ +100)
-        """
-        # Seçilen aksiyonun maliyetleri
-        if chosen_action == 'PIM':
-            actual_energy = energy_pim
-            actual_latency = latency_pim
-        elif chosen_action == 'GPU':
-            actual_energy = energy_gpu
-            actual_latency = latency_gpu
-        else:  # HYBRID
-            actual_energy = (energy_pim * 0.7 + energy_gpu * 0.3)
-            actual_latency = max(latency_pim * 0.7, latency_gpu * 0.3)
-        
-        # Enerji tasarrufu (GPU baseline'a göre) → 0 to 100
-        if energy_gpu > 0:
-            energy_saving_ratio = (energy_gpu - actual_energy) / energy_gpu
-            energy_reward = energy_saving_ratio * 100  # 0-100 arasında
-        else:
-            energy_reward = 0
-        
-        # Gecikme cezası
-        latency_penalty = 0
-        
-        if deadline_ms is not None and deadline_ms > 0:
-            if actual_latency > deadline_ms:
-                # Deadline ihlali: Sabit büyük ceza
-                latency_penalty = 100  # Sabit -100
-            else:
-                # Deadline içinde: küçük bonus
-                latency_penalty = -10  # +10 bonus
-        else:
-            # Deadline yok: göreceli yavaşlık cezası (küçük)
-            if latency_gpu > 0:
-                slowdown_ratio = (actual_latency - latency_gpu) / latency_gpu
-                latency_penalty = min(20, max(0, slowdown_ratio * 10))  # 0-20 ceza
-            else:
-                latency_penalty = 0
-        
-        # Toplam reward: -100 ~ +110 arası
-        reward = energy_reward - latency_penalty
-        
-        return reward
+    # PIM 4-bit
+    stats_pim4 = pim.convolution_layer(input_shape, kernel_shape, precision=4)
+    print("PIM (4-bit precision scaling):")
+    print(f"  Enerji: {stats_pim4['energy_total_mj']:.2f} mJ")
+    print(f"  Gecikme: {stats_pim4['latency_ms']:.2f} ms")
+    print(f"  Güç: {stats_pim4['power_mw']:.2f} mW")
+    print(f"  Tasarruf: %{(1 - stats_pim4['energy_total_mj']/stats_pim8['energy_total_mj'])*100:.1f}")
+    print()
+
+    # GPU
+    stats_gpu = gpu.model_inference(stats_pim8['total_macs'])
+    print("GPU (Jetson Nano):")
+    print(f"  Enerji: {stats_gpu['total_energy_mj']:.2f} mJ")
+    print(f"  Gecikme: {stats_gpu['total_latency_ms']:.2f} ms")
+    print(f"  Güç: {stats_gpu['avg_power_mw']:.2f} mW")
+    print()
     
-    def update_q_table(self, state, action, reward, next_state):
-        """
-        Q-Learning güncelleme kuralı:
-        Q(s,a) ← Q(s,a) + α[r + γ·max(Q(s',a')) - Q(s,a)]
-        
-        Args:
-            state: Önceki durum
-            action: Yapılan aksiyon
-            reward: Alınan reward
-            next_state: Yeni durum
-        """
-        action_idx = self.action_to_idx[action]
-        
-        # Current Q-value
-        current_q = self.q_table[state][action_idx]
-        
-        # Max Q-value for next state
-        max_next_q = np.max(self.q_table[next_state])
-        
-        # Q-learning update
-        new_q = current_q + self.alpha * (reward + self.gamma * max_next_q - current_q)
-        
-        self.q_table[state][action_idx] = new_q
-        
-        # Statistics
-        self.reward_history.append(reward)
-        self.total_reward += reward
-    
-    # ⬇️ ÖNEMLİ: Bu fonksiyonlar update_q_table ile AYNI SEVİYEDE olmalı!
-    def train_episode(self, pim_simulator, gpu_simulator, workload_data):
-        """
-        Bir eğitim episode'u çalıştır.
-        
-        Args:
-            pim_simulator: PIM simülatörü
-            gpu_simulator: GPU simülatörü
-            workload_data: [(workload_size, layer_type, deadline), ...]
-        
-        Returns:
-            episode_reward: Episode toplam reward'u
-        """
-        episode_reward = 0
-        
-        for workload_size, layer_type, deadline in workload_data:
-            # State'i discretize et
-            state = self._discretize_state(workload_size, layer_type, deadline)
-            
-            # Action seç (epsilon-greedy)
-            action = self.select_action(state, training=True)
-            
-            # Simüle et (basitleştirilmiş)
-            # Gerçek sistemde: pim_simulator.process(workload)
-            energy_pim = workload_size * 0.0001  # Örnek değer
-            energy_gpu = workload_size * 0.00015
-            latency_pim = workload_size * 0.00002
-            latency_gpu = workload_size * 0.000003
-            
-            # Reward hesapla
-            reward = self.calculate_reward(
-                energy_pim, energy_gpu,
-                latency_pim, latency_gpu,
-                action, deadline
-            )
-            
-            # Next state (basit: aynı state)
-            next_state = state
-            
-            # Q-table güncelle
-            self.update_q_table(state, action, reward, next_state)
-            
-            episode_reward += reward
-            self.action_history.append((state, action))
-        
-        self.episode_count += 1
-        
-        # Epsilon decay (zamanla exploration azalt)
-        self.epsilon = max(0.05, self.epsilon * 0.995)
-        
-        return episode_reward
-    
-    def predict(self, workload_size, layer_type, deadline_ms=None):
-        """
-        Öğrenilmiş policy ile en iyi aksiyonu seç (inference mode).
-        
-        Args:
-            workload_size: İşlem sayısı
-            layer_type: Katman tipi
-            deadline_ms: Gecikme kısıtı
-        
-        Returns:
-            action: 'PIM', 'GPU', veya 'HYBRID'
-            confidence: Q-value (ne kadar emin?)
-        """
-        state = self._discretize_state(workload_size, layer_type, deadline_ms)
-        q_values = self.q_table[state]
-        
-        best_action_idx = np.argmax(q_values)
-        best_action = self.actions[best_action_idx]
-        confidence = q_values[best_action_idx]
-        
-        return best_action, confidence
-    
-    def get_statistics(self):
-        """Öğrenme istatistikleri"""
-        return {
-            'episodes': self.episode_count,
-            'total_reward': self.total_reward,
-            'avg_reward': self.total_reward / max(1, self.episode_count),
-            'q_table_size': len(self.q_table),
-            'epsilon': self.epsilon,
-            'recent_rewards': self.reward_history[-10:] if self.reward_history else []
+    # Karşılaştırma
+    print("=== KARŞILAŞTIRMA ===")
+    print(f"PIM vs GPU Enerji Tasarrufu: %{(1 - stats_pim8['energy_total_mj']/stats_gpu['total_energy_mj'])*100:.1f}")
+    print(f"PIM vs GPU Hız Artışı: {stats_gpu['total_latency_ms'] / stats_pim8['latency_ms']:.2f}x")
+
+
+def test_advanced_hybrid():
+    """Katman Bazlı (Layer-wise) Hibrit Test"""
+    from pim_simulator import PIMArray
+    from baseline_models import GPUBaseline
+    from hybrid_scheduler import HybridSystem
+
+    print("\n" + "="*50)
+    print("GELİŞMİŞ KATMAN BAZLI HİBRİT TEST")
+    print("="*50)
+
+    # Sistemleri Hazırla
+    pim = PIMArray()
+    gpu = GPUBaseline()
+    scheduler = HybridSystem(pim, gpu)
+
+    # Sanal bir AI Modeli Oluştur (Liste olarak)
+    # Bir Conv2D -> ReLU -> Linear katmanlı model simülasyonu
+    fake_model = [
+        {
+            'name': 'conv1', 
+            'type': 'Conv2D', 
+            'input': (3, 227, 227), 
+            'kernel': (96, 3, 11, 11)
+        },
+        {
+            'name': 'relu1', 
+            'type': 'ReLU'
+        },
+        {
+            'name': 'fc1', 
+            'type': 'Linear', 
+            'in_features': 9216, 
+            'out_features': 4096
         }
+    ]
+
+    # Analiz Et ve Çalıştır
+    input_data_size_mb = 1.5 # Örnek veri boyutu
+    plan, total_e, total_l = scheduler.analyze_model_layers(fake_model, input_data_size_mb)
+
+    # Sonuçları Yazdır
+    print(f"\n{'Katman':<10} {'Tip':<10} {'Cihaz':<10} {'Enerji (mJ)':<15} {'Sebep'}")
+    print("-" * 80)
     
-    def save_model(self, filepath='q_learning_model.json'):
-        """Q-table'ı kaydet"""
-        model_data = {
-            'q_table': {str(k): v.tolist() for k, v in self.q_table.items()},
-            'hyperparameters': {
-                'alpha': self.alpha,
-                'gamma': self.gamma,
-                'epsilon': self.epsilon,
-                'energy_weight': self.energy_weight,
-                'latency_weight': self.latency_weight
-            },
-            'statistics': self.get_statistics()
-        }
-        
-        with open(filepath, 'w') as f:
-            json.dump(model_data, f, indent=2)
-        
-        print(f"✅ Model kaydedildi: {filepath}")
+    for p in plan:
+        print(f"{p['layer']:<10} {p['type']:<10} {p['device']:<10} {p['energy']:<15.4f} {p['reason']}")
     
-    def load_model(self, filepath='q_learning_model.json'):
-        """Q-table'ı yükle"""
-        with open(filepath, 'r') as f:
-            model_data = json.load(f)
-        
-        # Q-table'ı yükle
-        self.q_table = defaultdict(lambda: np.zeros(3))
-        for state_str, q_values in model_data['q_table'].items():
-            state = eval(state_str)  # String'i tuple'a çevir
-            self.q_table[state] = np.array(q_values)
-        
-        # Hyperparameters
-        hyper = model_data['hyperparameters']
-        self.alpha = hyper['alpha']
-        self.gamma = hyper['gamma']
-        self.epsilon = hyper['epsilon']
-        self.energy_weight = hyper['energy_weight']
-        self.latency_weight = hyper['latency_weight']
-        
-        print(f"✅ Model yüklendi: {filepath}")
-        print(f"   Q-table boyutu: {len(self.q_table)} state")
-        print(f"   Epsilon: {self.epsilon:.3f}")
+    print("-" * 80)
+    print(f"TOPLAM ENERJİ: {total_e:.2f} mJ")
+    print(f"TOPLAM SÜRE:   {total_l:.2f} ms")
 
 
-# Kullanım örneği (standalone test)
-if __name__ == "__main__":
-    print("🧠 Q-Learning Scheduler Demo")
-    print("="*60)
+
+def test_adaptive_qlearning():
+    """
+    Q-Learning tabanlı adaptive scheduler testi
+    """
+    print("\n" + "="*70)
+    print("  ADAPTIVE Q-LEARNING SCHEDULER TEST")
+    print("="*70)
+    
+    from Q_Learning.adaptive_scheduler import AdaptiveQLearningScheduler
     
     # Scheduler oluştur
     scheduler = AdaptiveQLearningScheduler(
         learning_rate=0.1,
+        discount_factor=0.9,
         epsilon=0.3,
         energy_weight=0.7,
         latency_weight=0.3
     )
     
-    # Örnek training data
+    print("\n  Hyperparameters:")
+    print(f"  Learning Rate (α): {scheduler.alpha}")
+    print(f"  Discount Factor (γ): {scheduler.gamma}")
+    print(f"  Exploration Rate (ε): {scheduler.epsilon}")
+    print(f"  Energy Weight: {scheduler.energy_weight}")
+    print(f"  Latency Weight: {scheduler.latency_weight}")
+    
+    # Training workloads
     training_workloads = [
-        (50000, 'Conv', 50.0),
+        (50000, 'Conv', 100.0),
         (5000000, 'Conv', 100.0),
-        (100000, 'ReLU', 10.0),
+        (50000000, 'Conv', 100.0),
+        (100000, 'ReLU', 50.0),
+        (1000000, 'ReLU', 10.0),
         (10000000, 'FC', 50.0),
-        (1000000, 'Conv', 20.0),
+        (1000000, 'FC', 100.0),
+        (500000, 'Conv', None),
     ]
     
-    # 10 episode eğit
-    print("\n🎓 Q-Learning Eğitimi Başlıyor...")
-    for episode in range(10):
-        reward = scheduler.train_episode(None, None, training_workloads * 5)
-        print(f"Episode {episode+1}: Reward = {reward:.2f}, Epsilon = {scheduler.epsilon:.3f}")
+    # Eğitim
+    print("\n Training Phase (20 episodes)...")
+    print(f"{'Episode':<10} {'Reward':<15} {'Epsilon':<15} {'Avg Reward':<15}")
+    print("-" * 70)
+    
+    for episode in range(20):
+        import random
+        episode_workloads = training_workloads * 3
+        random.shuffle(episode_workloads)
+        
+        reward = scheduler.train_episode(None, None, episode_workloads)
+        stats = scheduler.get_statistics()
+        avg_reward = stats['avg_reward']
+        
+        print(f"{episode+1:<10} {reward:<15.2f} {scheduler.epsilon:<15.3f} {avg_reward:<15.2f}")
     
     # İstatistikler
-    print("\n📊 Öğrenme İstatistikleri:")
+    print("\n Learning Statistics:")
     stats = scheduler.get_statistics()
-    for key, value in stats.items():
-        print(f"  {key}: {value}")
+    print(f"  Total Episodes: {stats['episodes']}")
+    print(f"  Total Reward: {stats['total_reward']:.2f}")
+    print(f"  Average Reward: {stats['avg_reward']:.2f}")
+    print(f"  Q-Table Size: {stats['q_table_size']} states learned")
+    print(f"  Final Epsilon: {stats['epsilon']:.3f}")
     
-    # Inference
-    print("\n🔍 Test Predictions:")
+    # Test phase
+    print("\n  Test Phase (Inference Mode):")
+    print(f"{'Workload':<12} {'Layer':<8} {'Deadline':<12} {'Decision':<10} {'Confidence':<12}")
+    print("-" * 70)
+    
     test_cases = [
         (50000, 'Conv', None),
-        (10000000, 'FC', 10.0),
-        (1000000, 'ReLU', 50.0)
+        (5000000, 'Conv', 100.0),
+        (50000000, 'Conv', 100.0),
+        (100000, 'ReLU', 50.0),
+        (1000000, 'ReLU', 5.0),
+        (10000000, 'FC', 50.0),
+        (500000, 'Conv', 200.0)
     ]
     
     for workload, layer, deadline in test_cases:
         action, confidence = scheduler.predict(workload, layer, deadline)
-        print(f"  Workload={workload}, Layer={layer}, Deadline={deadline}")
-        print(f"    → {action} (confidence: {confidence:.2f})")
+        deadline_str = f"{deadline} ms" if deadline else "None"
+        print(f"{workload:<12,} {layer:<8} {deadline_str:<12} {action:<10} {confidence:<12.2f}")
     
-    # Modeli kaydet
-    scheduler.save_model('q_learning_scheduler.json')
+    # Karşılaştırma
+    print("\n Comparison: Rule-Based vs Q-Learning")
+    print(f"{'Scenario':<30} {'Rule-Based':<15} {'Q-Learning':<15} {'Match?':<10}")
+    print("-" * 70)
+    
+    comparison_cases = [
+        (100000, 'Conv', None),
+        (5000000, 'Conv', 100.0),
+        (10000000, 'FC', 10.0)
+    ]
+    
+    for workload, layer, deadline in comparison_cases:
+        # Rule-based
+        if workload < 100000:
+            rule_based = "PIM"
+        elif workload > 10000000:
+            rule_based = "GPU"
+        else:
+            rule_based = "HYBRID"
+        
+        # Q-Learning
+        q_decision, _ = scheduler.predict(workload, layer, deadline)
+        
+        match = "Same " if q_decision == rule_based else "Different"
+        scenario = f"{workload//1000}K {layer}"
+        print(f"{scenario:<30} {rule_based:<15} {q_decision:<15} {match:<10}")
+    
+    # Model kaydet
+    scheduler.save_model('adaptive_scheduler_trained.json')
+    
+    print("\n Adaptive Q-Learning test tamamlandı!")
+    print("   Sistem artık geçmiş deneyimlerden öğrenerek")
+    print("   Optimal PIM/GPU kararları verebilir!")
+
+
+# Ana test fonksiyonuna ekleyin
+if __name__ == "__main__":
+    test_pim_core()
+    test_simple_cnn() 
+    test_pim_cluster()
+    test_advanced_hybrid()
+    test_adaptive_qlearning()
