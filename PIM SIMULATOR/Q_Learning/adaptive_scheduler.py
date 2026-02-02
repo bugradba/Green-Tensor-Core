@@ -355,7 +355,7 @@ if __name__ == "__main__":
     
     # 10 episode eğit
     print("\n Q-Learning Eğitimi Başlıyor...")
-    for episode in range(10):
+    for episode in range(60):
         reward = scheduler.train_episode(None, None, training_workloads * 5)
         print(f"Episode {episode+1}: Reward = {reward:.2f}, Epsilon = {scheduler.epsilon:.3f}")
     

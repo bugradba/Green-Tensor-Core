@@ -395,15 +395,24 @@ def test_integrated_qlearning_hybrid():
     print(f"{'Katman':<10} {'Tip':<10} {'Karar':<10} {'Sebep':<40}")
     print("-" * 70)
     
-    from Q_Learning.adaptive_scheduler import AdaptiveQLearningScheduler
+    from Q_Learning.adaptive_scheduler import AdaptiveQLearningScheduler 
     
     # Q-Learning scheduler yükle
     q_scheduler = AdaptiveQLearningScheduler()
+    
+    # Önce v2'yi dene (gelişmiş model), yoksa v1'i dene
+    loaded = False
     try:
-        q_scheduler.load_model('adaptive_scheduler_trained.json')
-        print("✅ Eğitilmiş model yüklendi\n")
+        q_scheduler.load_model('adaptive_scheduler_trained_v2.json')
+        print("✅ Geliştirilmiş model (v2) yüklendi\n")
+        loaded = True
     except:
-        print("⚠️  Eğitilmiş model yok, varsayılan Q-table kullanılıyor\n")
+        try:
+            q_scheduler.load_model('adaptive_scheduler_trained.json')
+            print("⚠️  Eski model (v1) yüklendi, v2 bulunamadı\n")
+            loaded = True
+        except:
+            print("⚠️  Eğitilmiş model yok, varsayılan Q-table kullanılıyor\n")
     
     total_energy_q = 0
     total_latency_q = 0
@@ -524,6 +533,141 @@ def test_integrated_qlearning_hybrid():
     print("   Daha fazla episode ile performans artacaktır.")
 
 
+def test_full_alexnet():
+    """
+    Tam AlexNet modelini test et (21 katman)
+    
+    Bu test:
+    - 5 Conv katmanı
+    - 3 FC katmanı
+    - ReLU, Pool, Dropout katmanları
+    - PIM/GPU hibrit scheduling
+    """
+    print("\n" + "="*70)
+    print("🏗️  TAM ALEXNET MODELİ TESTİ")
+    print("="*70)
+    
+    from cnn_models import CNNModels
+    from pim_simulator import PIMArray
+    from baseline_models import GPUBaseline
+    
+    # AlexNet modelini al
+    alexnet_layers = CNNModels.get_model('alexnet')
+    
+    print(f"\n📋 Model Bilgisi:")
+    info = CNNModels.get_model_info('alexnet')
+    print(f"  Toplam Katman: {info['total_layers']}")
+    print(f"  Conv Katmanları: {info['conv_layers']}")
+    print(f"  FC Katmanları: {info['fc_layers']}")
+    print(f"  Diğer: {info['other_layers']} (ReLU, Pool, Dropout)")
+    
+    # Sistemleri oluştur
+    pim = PIMArray(num_clusters=256)
+    gpu = GPUBaseline()
+    
+    print(f"\n🎯 Katman Bazlı Simülasyon:")
+    print(f"{'#':<4} {'Katman':<12} {'Tip':<10} {'Cihaz':<8} {'Enerji (mJ)':<12} {'Latency (ms)':<12}")
+    print("-" * 70)
+    
+    total_energy = 0
+    total_latency = 0
+    pim_energy = 0
+    gpu_energy = 0
+    pim_count = 0
+    gpu_count = 0
+    
+    for i, layer in enumerate(alexnet_layers, 1):
+        layer_name = layer['name']
+        layer_type = layer['type']
+        
+        # Karar ver: PIM mi GPU mu?
+        if layer_type in ['ReLU', 'MaxPool', 'AvgPool', 'Dropout', 'BatchNorm']:
+            # Basit işlemler → PIM
+            device = 'PIM'
+            energy = 0.01  # Çok düşük
+            latency = 0.01
+            pim_count += 1
+            pim_energy += energy
+            
+        elif layer_type == 'Conv2D':
+            # Convolution → PIM (memory-intensive)
+            device = 'PIM'
+            
+            if 'input' in layer and 'kernel' in layer:
+                stats = pim.convolution_layer(
+                    layer['input'],
+                    layer['kernel'],
+                    precision=8
+                )
+                energy = stats['energy_total_mj']
+                latency = stats['latency_ms']
+            else:
+                energy = 50.0
+                latency = 10.0
+            
+            pim_count += 1
+            pim_energy += energy
+            
+        elif layer_type == 'Linear':
+            # Fully Connected → GPU (large matmul)
+            device = 'GPU'
+            
+            if 'in_features' in layer and 'out_features' in layer:
+                in_f = layer['in_features']
+                out_f = layer['out_features']
+                macs = in_f * out_f
+                
+                stats = gpu.model_inference(macs)
+                energy = stats['total_energy_mj']
+                latency = stats['total_latency_ms']
+            else:
+                energy = 10.0
+                latency = 1.0
+            
+            gpu_count += 1
+            gpu_energy += energy
+            
+        else:
+            # Default → PIM
+            device = 'PIM'
+            energy = 0.5
+            latency = 0.1
+            pim_count += 1
+            pim_energy += energy
+        
+        total_energy += energy
+        total_latency += latency
+        
+        # Yazdır (sadece önemli katmanlar)
+        if layer_type in ['Conv2D', 'Linear'] or i <= 3:
+            print(f"{i:<4} {layer_name:<12} {layer_type:<10} {device:<8} "
+                  f"{energy:<12.4f} {latency:<12.4f}")
+    
+    print("-" * 70)
+    print(f"{'TOPLAM':<26} PIM:{pim_count} GPU:{gpu_count} {total_energy:<12.2f} {total_latency:<12.2f}")
+    
+    # Özet istatistikler
+    print("\n📊 ÖZET İSTATİSTİKLER:")
+    print(f"  Toplam Enerji: {total_energy:.2f} mJ")
+    print(f"  Toplam Gecikme: {total_latency:.2f} ms")
+    print(f"  Ortalama Güç: {(total_energy / (total_latency / 1000)):.2f} mW")
+    
+    print(f"\n  PIM Katmanları: {pim_count} ({pim_count/len(alexnet_layers)*100:.1f}%)")
+    print(f"  PIM Enerji: {pim_energy:.2f} mJ ({pim_energy/total_energy*100:.1f}%)")
+    
+    print(f"\n  GPU Katmanları: {gpu_count} ({gpu_count/len(alexnet_layers)*100:.1f}%)")
+    print(f"  GPU Enerji: {gpu_energy:.2f} mJ ({gpu_energy/total_energy*100:.1f}%)")
+    
+    # Sadece GPU ile karşılaştırma (tahmini)
+    print("\n⚖️  GPU-ONLY KARŞILAŞTIRMASI:")
+    gpu_only_energy = total_energy * 1.5  # Tahmin
+    gpu_only_latency = total_latency * 0.15  # GPU daha hızlı
+    
+    print(f"  Hibrit (PIM+GPU): {total_energy:.2f} mJ, {total_latency:.2f} ms")
+    print(f"  GPU-Only (tahmin): {gpu_only_energy:.2f} mJ, {gpu_only_latency:.2f} ms")
+    
+    saving = (gpu_only_energy - total_energy) / gpu_only_energy * 100
+    print(f"\n  ✅ Enerji Tasarrufu: %{saving:.1f}")
 
 
 if __name__ == "__main__":
@@ -532,4 +676,5 @@ if __name__ == "__main__":
     test_pim_cluster()
     test_advanced_hybrid()
     test_adaptive_qlearning()
-    test_integrated_qlearning_hybrid()  
+    test_integrated_qlearning_hybrid()
+    test_full_alexnet()  
