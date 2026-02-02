@@ -1,146 +1,119 @@
-# ⚡ PIM Simulator for Energy-Efficient 5G Base Stations
+# 🌿 Green-Tensor-Core
 
-> **Artificial Intelligence Supported Energy Optimisation System for 5G Base Stations**
-> *Edge AI + Processing-in-Memory (PIM) for energy-aware baseband acceleration*
+**Sustainable Hybrid (CPU + PIM) Computing Architecture for Next-Gen AI Workloads**
 
----
+> *"Moving the processor to the data, instead of moving data to the processor."*
 
-## 📌 Motivation
-
-5G base stations operate **24/7** and are among the most energy-hungry components of modern mobile networks. Even a **5–10% energy saving** at scale translates into **millions of TL in operational cost reduction** and a **significant decrease in carbon footprint**.
-
-With the growth of AI-driven services and high-throughput baseband processing, **energy efficiency at the edge of the network** has become critical. This project explores how **Processing-in-Memory (PIM)** and **precision-scalable computing (8-bit / 4-bit)** can be combined with **AI-driven decision mechanisms** to reduce energy consumption while keeping performance within acceptable limits.
-
-> **System is designed to operate at the edge of the 5G network, close to base stations, where energy efficiency is critical.**
+[View Demo](#) • [Documentation](#) • [Report Bug](#)
 
 ---
 
-## 🏗️ Where This Fits in 5G Architecture
+## 🚀 Executive Summary
 
-This simulator targets the **edge side of the 5G network**, where latency and energy constraints are the strictest:
+**Green-Tensor-Core** is a simulation framework for a **Hybrid Computing Architecture** designed to tackle one of the biggest challenges in modern computing: **Data Movement Energy Costs**.
 
-```
-           ┌───────────────────────────┐
-           │        Core Network       │
-           └─────────────┬─────────────┘
-                         │
-                 ┌───────▼────────┐
-                 │   Near-RT RIC   │  (RAN Intelligent Controller)
-                 └───────┬────────┘
-                         │  Control / Optimization Decisions
-           ┌─────────────▼─────────────┐
-           │        Edge Cloud          │
-           │  (AI Inference & Control)  │
-           └─────────────┬─────────────┘
-                         │
-           ┌─────────────▼─────────────┐
-           │ Baseband Processing Unit   │
-           │ (PIM / GPU / CPU Compute)  │
-           └───────────────────────────┘
-```
+In traditional Von Neumann architectures, up to **62.7% of total system energy** is wasted on moving data between **Memory (DRAM)** and the **Processor (CPU/GPU)**.  
+This project proposes a sustainable solution by integrating **Processing-in-Memory (PIM)** accelerators with a host CPU.
 
-In this context:
+By offloading heavy **vector-matrix operations** to the memory module and keeping control logic on the CPU, **Green-Tensor-Core** aims to drastically reduce the **carbon footprint** of:
 
-* **Near-RT RIC / Edge Cloud**: Makes intelligent decisions about *how* and *where* computations should run.
-* **Baseband Processing Unit (BBU)**: Executes compute-intensive operations such as CNN layers, MAC operations, and signal processing kernels.
-* **This project** simulates how **PIM clusters** with **precision scaling (8-bit vs 4-bit)** can reduce energy consumption in the BBU while maintaining acceptable performance.
+- 5G/6G Networks  
+- Green Data Centers  
+- Autonomous Systems  
+- Edge AI & IoT Devices  
 
 ---
 
-## 🚀 Key Ideas
+## 🧠 System Architecture
 
-* **Processing-in-Memory (PIM)**: Reduce data movement by performing MAC operations inside or near memory.
-* **Precision Scaling (8-bit / 4-bit)**: Trade numerical precision for **lower energy and latency**.
-* **Cluster-Based PIM Architecture**: 8-bit MAC is decomposed into multiple 4-bit operations executed in parallel across a 3×3 (9-core) PIM cluster.
-* **Energy & Latency Modeling**: Each operation reports:
+The system follows a **heterogeneous computing model** with three main layers:
 
-  * Energy consumption
-  * Latency
-  * Effective power
-* **5G-Oriented Workloads**: Includes CNN layer examples (e.g., AlexNet Conv1) representing baseband / edge AI workloads.
+> 📌 *(Place your architecture diagram in `docs/architecture_diagram.png` and reference it here)*
 
----
+### 1. Host CPU (Control Plane)
 
-## 🧠 Why This Matters for Operators (e.g., Turkcell)
+- **Role:** Manages OS, I/O requests, and light serial processing  
+- **Logic:** Acts as the *"brain"* and decides which tasks should be offloaded  
 
-* 📡 **Base stations run 24/7** → even small efficiency gains matter
-* 💰 **5–10% energy saving** → **millions of TL** in OPEX reduction at national scale
-* 🌱 **Lower carbon footprint** → greener mobile networks
-* 🤖 **Edge AI + PIM** → future-proof architecture for 5G-Advanced and 6G
-* ⚡ **Less data movement, more compute near memory** → better performance per watt
+### 2. PIM Accelerator (Data Plane)
 
-This project demonstrates, at a simulator level, **how hardware-aware AI and PIM architectures can be used together** to move toward more sustainable mobile networks.
+- **Role:** Performs high-intensity parallel computations (e.g., Deep Learning Inference, FFT) directly inside memory  
+- **Benefit:** Near-zero data movement cost for large datasets  
 
----
+### 3. Intelligent Hybrid Scheduler ⚡
 
-## 🧩 Project Structure
+**Core Innovation:**  
+A runtime scheduler that analyzes incoming tasks:
 
-```
-PIM SIMULATOR/
-├── pim_core.py          # 4-bit MAC model, energy & latency per operation
-├── pim_cluster.py       # 9-core PIM cluster, 8-bit & 4-bit precision MAC
-├── cnn_layers.py        # CNN layer abstractions (e.g., Conv, ReLU, FC)
-├── test_simulator.py    # End-to-end tests and benchmarks
-└── ...
-```
+- If task is **Data-Intensive** (e.g., Matrix Multiplication) → Offload to **PIM**
+- If task is **Control-Intensive** (e.g., Branching Logic) → Execute on **CPU**
 
 ---
 
-## ▶️ How to Run
+## 🌍 Potential Use Cases
+
+| Domain | Problem | Green-Tensor-Core Solution |
+|--------|---------|----------------------------|
+| 📡 5G & 6G Networks | Base stations consume massive power for signal processing | Reduces energy per bit via in-memory processing |
+| ☁️ Green Data Centers | AI training (LLMs) causes high heat & carbon emissions | Lowers cooling cost and TDP |
+| 🛸 Autonomous Systems | Limited battery for AI workloads | Extends flight time / driving range |
+| 🔒 Edge AI & IoT | Cloud offloading is slow and risky | Enables secure, low-latency on-device AI |
+
+---
+
+## 📊 Simulation Results
+
+Benchmarked against **CPU-only architectures** using synthetic workloads (ResNet-50-like matrix operations):
+
+- ⚡ **Energy Savings:** ~**42%** reduction in total energy consumption  
+- ⏱️ **Latency:** **1.8× speedup** for large batch workloads  
+- 📉 **Bus Utilization:** **60% reduction** in memory bus traffic  
+
+---
+
+## 🛠️ Installation & Quick Start
+
+### Prerequisites
+
+- Python **3.8+**
+- `pip`
+
+### Steps
+
+#### 1️⃣ Clone the Repository
 
 ```bash
-python test_simulator.py
+git clone https://github.com/bugradba/Green-Tensor-Core.git
+cd Green-Tensor-Core
+pip install -r requirements.txt
+python src/main.py --mode hybrid --workload large_matrix
+
+
+Green-Tensor-Core/
+├── PIM SIMULATOR/
+│   ├── Q_Learning/                 # Q-Learning based scheduling utilities
+│   │   ├── (Q_Learning içerikleri) # Q-learning scripts & helpers
+│   │
+│   ├── adaptive_scheduler.py       # Adaptive scheduler module
+│   ├── baseline_models.py          # Baseline (CPU-only) models
+│   ├── hybrid_scheduler.py         # Hybrid CPU + PIM scheduler logic
+│   ├── pim_simulator.py            # Core processing-in-memory simulation engine
+│   ├── adaptive_precision.py       # Precision/energy trade-off experiments
+│   ├── test_simulator.py           # Simulation tests & benchmarks
+│   └── visualize_scheduler.py      # Visualization tools for scheduler behavior
+├── README.md                       # Project overview and docs
+└── requirements.txt                # Python dependencies
+
 ```
 
-This will:
+###Contact & Acknowledgements
 
-* Test a single PIM core
-* Test a PIM cluster (8-bit vs 4-bit precision)
-* Run a sample CNN layer workload
-* Compare energy, latency, and power against a GPU baseline
+- **Developer: Muhammed Buğra Demirbaş
+- **Context: Developed for Tomorrow's Technology Leaders (Sustainability Track).
 
----
+- **LinkedIn: https://www.linkedin.com/in/m-bugra-demirbas/
 
-## 📊 Example Results (From Simulator)
+- **Email: mbugrademirbas@gmail.com
 
-* **8-bit vs 4-bit PIM MAC**:
 
-  * ~**77% energy saving** for 4-bit precision
-  * ~**2× lower latency**
-* **CNN Layer (AlexNet Conv1)**:
 
-  * PIM shows significantly lower energy than GPU
-  * Precision scaling further reduces energy with acceptable approximation
-
-These results highlight the **energy–accuracy–latency trade-off** that is critical in edge and baseband processing.
-
----
-
-## 🔮 Future Work
-
-* Integrate a **learning-based scheduler (e.g., Q-Learning / RL)** to decide dynamically:
-
-  * PIM vs GPU execution
-  * 8-bit vs 4-bit precision
-* Add **accuracy-aware cost functions** (Energy–Delay–Accuracy trade-off)
-* Extend workload set to more **5G baseband and AI models**
-* Calibrate the simulator with **real hardware measurements**
-
----
-
-## 📚 References
-
-* pPIM: *A Programmable Processor-in-Memory Architecture With Precision-Scaling for Deep Learning*
-* 5G RAN Architecture (Near-RT RIC, Edge Cloud, BBU concepts)
-
----
-
-## ✍️ Author
-
-**Buğra Demirbaş**
-Computer Engineering Student
-Focus: 5G/6G Networks, Edge AI, Processing-in-Memory, Energy-Efficient Architectures
-
----
-
-If you are interested in **energy-efficient edge computing for 5G and beyond**, this simulator provides a concrete and extensible starting point.
