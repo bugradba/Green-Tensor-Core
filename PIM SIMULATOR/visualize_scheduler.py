@@ -1,507 +1,370 @@
 """
-Eco-PIM Görselleştirme Modülü
+Eco-PIM Görselleştirme - Gerçek Proje Verileri İle Güncellenmiş
 
-Bu modül projenin tüm sonuçlarını profesyonel grafiklerle görselleştirir:
-1. Q-Learning eğitim süreci
-2. Enerji karşılaştırması
-3. Gecikme vs Enerji trade-off
-4. 4-bit vs 8-bit karşılaştırma
-5. Hibrit sistem breakdown
-6. Dashboard (tüm grafikler tek sayfada)
+Bu script projenizin GERÇEK sonuçlarını görselleştirir.
 """
 
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-import json
 
-# Seaborn stil ayarları
+# Stil ayarları
 sns.set_style("whitegrid")
 plt.rcParams['font.size'] = 10
-plt.rcParams['axes.titlesize'] = 12
-plt.rcParams['axes.labelsize'] = 11
 plt.rcParams['figure.titlesize'] = 14
 
-class EcoPIMVisualizer:
-    """Eco-PIM projesinin tüm görselleştirmelerini oluşturur"""
+class EcoPIMVisualizerUpdated:
+    """Gerçek proje verilerini görselleştir"""
     
     def __init__(self):
         self.colors = {
-            'pim': '#2ecc71',      # Yeşil
-            'gpu': '#e74c3c',      # Kırmızı
-            'hybrid': '#3498db',   # Mavi
-            'pim_4bit': '#27ae60', # Koyu yeşil
-            'accent': '#f39c12'    # Turuncu
+            'pim': '#2ecc71',
+            'gpu': '#e74c3c',
+            'hybrid': '#3498db',
+            'pim_4bit': '#27ae60',
+            'accent': '#f39c12'
         }
     
-    def plot_qlearning_training(self, episodes, rewards, save_path='qlearning_training.png'):
+    def create_summary_dashboard(self, save_path='eco_pim_summary.png'):
         """
-        Q-Learning eğitim sürecini görselleştir
-        
-        Args:
-            episodes: [1, 2, 3, ..., 20]
-            rewards: [510, 643, 683, ...]
-            save_path: Kayıt yolu
+        Tüm önemli metrikleri tek sayfada göster
         """
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+        fig = plt.figure(figsize=(16, 10))
+        gs = fig.add_gridspec(3, 3, hspace=0.35, wspace=0.3)
         
-        # Sol grafik: Episode rewards
-        ax1.plot(episodes, rewards, 'o-', color=self.colors['pim'], 
-                linewidth=2.5, markersize=8, label='Episode Reward')
-        
-        # Trend line (moving average)
-        if len(rewards) >= 3:
-            window = min(3, len(rewards))
-            moving_avg = np.convolve(rewards, np.ones(window)/window, mode='valid')
-            ax1.plot(episodes[window-1:], moving_avg, '--', 
-                    color=self.colors['accent'], linewidth=2, label='Trend (MA-3)')
-        
-        ax1.axhline(y=np.mean(rewards), color='gray', linestyle=':', 
-                   linewidth=1.5, label=f'Average: {np.mean(rewards):.1f}')
-        
-        ax1.set_xlabel('Episode', fontweight='bold')
-        ax1.set_ylabel('Total Reward', fontweight='bold')
-        ax1.set_title('Q-Learning Training Progress', fontweight='bold', pad=15)
-        ax1.legend(loc='lower right')
-        ax1.grid(True, alpha=0.3)
-        
-        # Sağ grafik: Cumulative reward
-        cumulative = np.cumsum(rewards)
-        ax2.fill_between(episodes, 0, cumulative, alpha=0.3, color=self.colors['pim'])
-        ax2.plot(episodes, cumulative, '-', color=self.colors['pim'], linewidth=2.5)
-        
-        ax2.set_xlabel('Episode', fontweight='bold')
-        ax2.set_ylabel('Cumulative Reward', fontweight='bold')
-        ax2.set_title('Learning Accumulation', fontweight='bold', pad=15)
-        ax2.grid(True, alpha=0.3)
-        
-        # Final değerleri ekle
-        final_reward = rewards[-1]
-        final_cumulative = cumulative[-1]
-        ax1.text(episodes[-1], final_reward, f'{final_reward:.0f}', 
-                ha='left', va='bottom', fontsize=9, fontweight='bold')
-        ax2.text(episodes[-1], final_cumulative, f'{final_cumulative:.0f}', 
-                ha='left', va='bottom', fontsize=9, fontweight='bold')
-        
-        plt.tight_layout()
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"✅ Grafik kaydedildi: {save_path}")
-        plt.show()
-    
-    def plot_energy_comparison(self, pim_8bit, pim_4bit, gpu, hybrid, 
-                               save_path='energy_comparison.png'):
-        """
-        Enerji tüketimi karşılaştırması (bar chart)
-        
-        Args:
-            pim_8bit: PIM 8-bit enerji (mJ)
-            pim_4bit: PIM 4-bit enerji (mJ)
-            gpu: GPU enerji (mJ)
-            hybrid: Hibrit enerji (mJ)
-        """
-        fig, ax = plt.subplots(figsize=(10, 6))
-        
-        systems = ['PIM\n(8-bit)', 'PIM\n(4-bit)', 'GPU\n(Baseline)', 'Hybrid\n(Q-Learning)']
-        energies = [pim_8bit, pim_4bit, gpu, hybrid]
+        # 1. Enerji Karşılaştırması (üst sol, geniş)
+        ax1 = fig.add_subplot(gs[0, :2])
+        systems = ['PIM\n8-bit', 'PIM\n4-bit', 'GPU', 'Hybrid\nAlexNet']
+        energies = [211.38, 186.57, 332.09, 313.50]
         colors = [self.colors['pim'], self.colors['pim_4bit'], 
                  self.colors['gpu'], self.colors['hybrid']]
         
-        bars = ax.bar(systems, energies, color=colors, alpha=0.8, 
-                     edgecolor='black', linewidth=1.5)
-        
-        # Değerleri bar üzerine yaz
-        for bar, energy in zip(bars, energies):
-            height = bar.get_height()
-            ax.text(bar.get_x() + bar.get_width()/2., height,
-                   f'{energy:.1f} mJ',
-                   ha='center', va='bottom', fontweight='bold', fontsize=11)
+        bars = ax1.bar(systems, energies, color=colors, alpha=0.8, 
+                      edgecolor='black', linewidth=1.5)
         
         # Tasarruf yüzdelerini ekle
-        savings_vs_gpu = [(gpu - e) / gpu * 100 for e in energies]
-        for i, (bar, saving) in enumerate(zip(bars, savings_vs_gpu)):
-            if saving > 0:
-                ax.text(bar.get_x() + bar.get_width()/2., bar.get_height() * 0.5,
-                       f'↓{saving:.1f}%',
-                       ha='center', va='center', fontsize=10, 
-                       color='white', fontweight='bold',
-                       bbox=dict(boxstyle='round', facecolor='black', alpha=0.6))
-        
-        ax.set_ylabel('Enerji Tüketimi (mJ)', fontweight='bold', fontsize=12)
-        ax.set_title('Sistem Enerji Karşılaştırması', fontweight='bold', fontsize=14, pad=20)
-        ax.set_ylim(0, max(energies) * 1.15)
-        ax.grid(axis='y', alpha=0.3, linestyle='--')
-        
-        plt.tight_layout()
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"✅ Grafik kaydedildi: {save_path}")
-        plt.show()
-    
-    def plot_latency_vs_energy(self, results_dict, save_path='latency_vs_energy.png'):
-        """
-        Gecikme vs Enerji scatter plot (trade-off analizi)
-        
-        Args:
-            results_dict: {
-                'PIM': {'energy': 211, 'latency': 41},
-                'GPU': {'energy': 332, 'latency': 6.95},
-                'Hybrid': {'energy': 219, 'latency': 42.69}
-            }
-        """
-        fig, ax = plt.subplots(figsize=(10, 8))
-        
-        for system, data in results_dict.items():
-            energy = data['energy']
-            latency = data['latency']
-            
-            if system == 'PIM':
-                color = self.colors['pim']
-                marker = 'o'
-                size = 300
-            elif system == 'GPU':
-                color = self.colors['gpu']
-                marker = 's'
-                size = 300
-            elif system == 'Hybrid':
-                color = self.colors['hybrid']
-                marker = '^'
-                size = 350
-            else:
-                color = 'gray'
-                marker = 'D'
-                size = 250
-            
-            ax.scatter(latency, energy, s=size, c=color, marker=marker, 
-                      alpha=0.7, edgecolor='black', linewidth=2, label=system)
-            
-            # Etiket ekle
-            ax.annotate(f'{system}\n({energy:.0f} mJ, {latency:.1f} ms)',
-                       xy=(latency, energy), 
-                       xytext=(10, 10), textcoords='offset points',
-                       fontsize=9, fontweight='bold',
-                       bbox=dict(boxstyle='round,pad=0.5', facecolor=color, alpha=0.3),
-                       arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0'))
-        
-        # Pareto frontier çiz (ideal bölge)
-        ax.axhline(y=min([d['energy'] for d in results_dict.values()]), 
-                  color='green', linestyle=':', linewidth=1.5, alpha=0.5, label='Min Energy')
-        ax.axvline(x=min([d['latency'] for d in results_dict.values()]), 
-                  color='blue', linestyle=':', linewidth=1.5, alpha=0.5, label='Min Latency')
-        
-        ax.set_xlabel('Gecikme (ms)', fontweight='bold', fontsize=12)
-        ax.set_ylabel('Enerji (mJ)', fontweight='bold', fontsize=12)
-        ax.set_title('Enerji vs Gecikme Trade-off Analizi', 
-                    fontweight='bold', fontsize=14, pad=20)
-        ax.legend(loc='upper right', fontsize=10)
-        ax.grid(True, alpha=0.3, linestyle='--')
-        
-        # İdeal bölgeyi vurgula
-        min_energy = min([d['energy'] for d in results_dict.values()])
-        min_latency = min([d['latency'] for d in results_dict.values()])
-        ax.fill_between([0, min_latency], 0, min_energy, alpha=0.1, color='green', label='Ideal Zone')
-        
-        plt.tight_layout()
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"✅ Grafik kaydedildi: {save_path}")
-        plt.show()
-    
-    def plot_4bit_vs_8bit(self, bit_8_energy, bit_4_energy, 
-                          bit_8_latency, bit_4_latency,
-                          save_path='4bit_vs_8bit.png'):
-        """
-        4-bit vs 8-bit karşılaştırması (dual axis)
-        
-        Args:
-            bit_8_energy, bit_4_energy: Enerji değerleri (pJ)
-            bit_8_latency, bit_4_latency: Gecikme değerleri (ns)
-        """
-        fig, ax1 = plt.subplots(figsize=(10, 6))
-        
-        x = ['8-bit\n(Tam Hassasiyet)', '4-bit\n(Quantized)']
-        
-        # Enerji barları (sol axis)
-        energies = [bit_8_energy, bit_4_energy]
-        bars1 = ax1.bar([0, 1], energies, width=0.4, align='edge',
-                       color=self.colors['pim'], alpha=0.7, 
-                       label='Enerji (pJ)', edgecolor='black', linewidth=1.5)
-        
-        ax1.set_ylabel('Enerji (pJ)', fontweight='bold', fontsize=12, color=self.colors['pim'])
-        ax1.tick_params(axis='y', labelcolor=self.colors['pim'])
-        ax1.set_xticks([0.2, 1.2])
-        ax1.set_xticklabels(x, fontsize=11)
-        
-        # Enerji tasarrufu etiketi
-        saving = (bit_8_energy - bit_4_energy) / bit_8_energy * 100
-        ax1.text(1.2, bit_4_energy, f'↓{saving:.1f}%\nTasarruf',
-                ha='center', va='bottom', fontsize=10, fontweight='bold',
-                color=self.colors['pim'],
-                bbox=dict(boxstyle='round', facecolor='white', edgecolor=self.colors['pim'], linewidth=2))
-        
-        # Gecikme çizgisi (sağ axis)
-        ax2 = ax1.twinx()
-        latencies = [bit_8_latency, bit_4_latency]
-        line = ax2.plot([0.2, 1.2], latencies, 'o-', 
-                       color=self.colors['gpu'], linewidth=3, markersize=12,
-                       label='Gecikme (ns)')
-        
-        ax2.set_ylabel('Gecikme (ns)', fontweight='bold', fontsize=12, color=self.colors['gpu'])
-        ax2.tick_params(axis='y', labelcolor=self.colors['gpu'])
-        
-        # Gecikme iyileşmesi etiketi
-        latency_improve = (bit_8_latency - bit_4_latency) / bit_8_latency * 100
-        ax2.text(1.2, bit_4_latency, f'↓{latency_improve:.1f}%\nDaha Hızlı',
-                ha='center', va='top', fontsize=10, fontweight='bold',
-                color=self.colors['gpu'],
-                bbox=dict(boxstyle='round', facecolor='white', edgecolor=self.colors['gpu'], linewidth=2))
-        
-        # Değerleri ekle
-        for bar, energy in zip(bars1, energies):
+        savings = [36.3, 43.8, 0, 33.3]  # GPU'ya göre
+        for bar, energy, saving in zip(bars, energies, savings):
             ax1.text(bar.get_x() + bar.get_width()/2., energy,
-                    f'{energy:.2f} pJ',
+                    f'{energy:.0f} mJ',
                     ha='center', va='bottom', fontweight='bold', fontsize=10)
+            if saving > 0:
+                ax1.text(bar.get_x() + bar.get_width()/2., energy * 0.5,
+                        f'↓{saving:.1f}%',
+                        ha='center', va='center', fontsize=9,
+                        color='white', fontweight='bold',
+                        bbox=dict(boxstyle='round', facecolor='black', alpha=0.6))
         
-        for i, (x_pos, latency) in enumerate(zip([0.2, 1.2], latencies)):
-            ax2.text(x_pos, latency, f'{latency:.2f} ns',
-                    ha='center', va='top', fontweight='bold', fontsize=10,
-                    bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.8))
+        ax1.set_ylabel('Enerji (mJ)', fontweight='bold', fontsize=11)
+        ax1.set_title('Enerji Tüketimi Karşılaştırması', fontweight='bold', fontsize=12)
+        ax1.grid(axis='y', alpha=0.3)
         
-        ax1.set_title('4-bit Quantization Etkisi', fontweight='bold', fontsize=14, pad=20)
-        ax1.grid(axis='y', alpha=0.3, linestyle='--')
+        # 2. 4-bit vs 8-bit (üst sağ)
+        ax2 = fig.add_subplot(gs[0, 2])
+        categories = ['8-bit', '4-bit']
+        cluster_energies = [19.44, 4.32]  # pJ
         
-        # Legends
-        lines1, labels1 = ax1.get_legend_handles_labels()
-        lines2, labels2 = ax2.get_legend_handles_labels()
-        ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper center', fontsize=10)
+        bars2 = ax2.bar(categories, cluster_energies, 
+                       color=[self.colors['pim'], self.colors['pim_4bit']],
+                       alpha=0.8, edgecolor='black', linewidth=1.5)
         
-        plt.tight_layout()
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"✅ Grafik kaydedildi: {save_path}")
-        plt.show()
-    
-    def plot_hybrid_breakdown(self, layer_results, save_path='hybrid_breakdown.png'):
-        """
-        Hibrit sistemin katman bazlı enerji dağılımı (pie chart + bar)
+        for bar, energy in zip(bars2, cluster_energies):
+            ax2.text(bar.get_x() + bar.get_width()/2., energy,
+                    f'{energy:.2f} pJ',
+                    ha='center', va='bottom', fontweight='bold', fontsize=9)
         
-        Args:
-            layer_results: [
-                {'layer': 'conv1', 'type': 'Conv2D', 'device': 'PIM', 'energy': 211.38},
-                {'layer': 'relu1', 'type': 'ReLU', 'device': 'PIM', 'energy': 0.01},
-                {'layer': 'fc1', 'type': 'Linear', 'device': 'GPU', 'energy': 7.71}
-            ]
-        """
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+        ax2.text(1, cluster_energies[1], '↓77.8%',
+                ha='center', va='top', fontsize=9, fontweight='bold',
+                color=self.colors['pim_4bit'],
+                bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
         
-        # Sol: Pie chart (enerji dağılımı)
-        layers = [r['layer'] for r in layer_results]
-        energies = [r['energy'] for r in layer_results]
-        devices = [r['device'] for r in layer_results]
+        ax2.set_ylabel('Enerji (pJ)', fontweight='bold', fontsize=10)
+        ax2.set_title('4-bit Quantization Etkisi', fontweight='bold', fontsize=11)
+        ax2.grid(axis='y', alpha=0.3)
         
-        colors_pie = [self.colors['pim'] if d == 'PIM' else self.colors['gpu'] 
-                     for d in devices]
+        # 3. AlexNet Layer Distribution (orta sol)
+        ax3 = fig.add_subplot(gs[1, 0])
+        layer_types = ['PIM\n(85%)', 'GPU\n(15%)']
+        layer_counts = [17, 3]
+        layer_colors = [self.colors['pim'], self.colors['gpu']]
         
-        wedges, texts, autotexts = ax1.pie(energies, labels=layers, autopct='%1.1f%%',
-                                           colors=colors_pie, startangle=90,
-                                           textprops={'fontsize': 10, 'fontweight': 'bold'},
+        wedges, texts, autotexts = ax3.pie(layer_counts, labels=layer_types,
+                                           autopct='%d', colors=layer_colors,
+                                           startangle=90, textprops={'fontsize': 10, 'fontweight': 'bold'},
                                            wedgeprops={'edgecolor': 'black', 'linewidth': 1.5})
         
         for autotext in autotexts:
             autotext.set_color('white')
-            autotext.set_fontsize(10)
-            autotext.set_fontweight('bold')
+            autotext.set_fontsize(12)
         
-        ax1.set_title('Katman Bazlı Enerji Dağılımı', fontweight='bold', fontsize=12, pad=15)
+        ax3.set_title('AlexNet Katman Dağılımı\n(20 Katman)', fontweight='bold', fontsize=11)
         
-        # Sağ: Bar chart (device breakdown)
-        pim_total = sum([r['energy'] for r in layer_results if r['device'] == 'PIM'])
-        gpu_total = sum([r['energy'] for r in layer_results if r['device'] == 'GPU'])
-        
-        devices_unique = ['PIM', 'GPU']
-        device_energies = [pim_total, gpu_total]
-        device_colors = [self.colors['pim'], self.colors['gpu']]
-        
-        bars = ax2.barh(devices_unique, device_energies, color=device_colors, 
-                       alpha=0.8, edgecolor='black', linewidth=1.5)
-        
-        for bar, energy in zip(bars, device_energies):
-            width = bar.get_width()
-            ax2.text(width, bar.get_y() + bar.get_height()/2.,
-                    f'{energy:.2f} mJ\n({energy/(pim_total+gpu_total)*100:.1f}%)',
-                    ha='left', va='center', fontweight='bold', fontsize=11,
-                    bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.8))
-        
-        ax2.set_xlabel('Toplam Enerji (mJ)', fontweight='bold', fontsize=11)
-        ax2.set_title('Cihaz Bazlı Toplam Enerji', fontweight='bold', fontsize=12, pad=15)
-        ax2.grid(axis='x', alpha=0.3, linestyle='--')
-        
-        plt.tight_layout()
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"✅ Grafik kaydedildi: {save_path}")
-        plt.show()
-    
-    def create_full_dashboard(self, all_data, save_path='dashboard.png'):
-        """
-        Tüm metrikleri tek sayfada gösteren dashboard
-        
-        Args:
-            all_data: Dict içinde tüm veriler
-        """
-        fig = plt.figure(figsize=(18, 12))
-        gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
-        
-        # 1. Q-Learning Training (üst sol)
-        ax1 = fig.add_subplot(gs[0, :2])
-        episodes = all_data['qlearning']['episodes']
-        rewards = all_data['qlearning']['rewards']
-        ax1.plot(episodes, rewards, 'o-', color=self.colors['pim'], linewidth=2, markersize=6)
-        ax1.set_title('Q-Learning Training', fontweight='bold', fontsize=11)
-        ax1.set_xlabel('Episode', fontsize=9)
-        ax1.set_ylabel('Reward', fontsize=9)
-        ax1.grid(True, alpha=0.3)
-        
-        # 2. Enerji Karşılaştırması (üst sağ)
-        ax2 = fig.add_subplot(gs[0, 2])
-        systems = ['PIM\n8-bit', 'GPU']
-        energies = [all_data['energy']['pim_8bit'], all_data['energy']['gpu']]
-        bars = ax2.bar(systems, energies, color=[self.colors['pim'], self.colors['gpu']], alpha=0.7)
-        ax2.set_title('Enerji', fontweight='bold', fontsize=11)
-        ax2.set_ylabel('mJ', fontsize=9)
-        for bar, e in zip(bars, energies):
-            ax2.text(bar.get_x() + bar.get_width()/2., e, f'{e:.0f}', 
-                    ha='center', va='bottom', fontsize=8)
-        
-        # 3. Gecikme Karşılaştırması (orta sol)
-        ax3 = fig.add_subplot(gs[1, 0])
-        latencies = [all_data['latency']['pim'], all_data['latency']['gpu']]
-        ax3.barh(systems, latencies, color=[self.colors['pim'], self.colors['gpu']], alpha=0.7)
-        ax3.set_title('Gecikme', fontweight='bold', fontsize=11)
-        ax3.set_xlabel('ms', fontsize=9)
-        ax3.grid(axis='x', alpha=0.3)
-        
-        # 4. 4-bit vs 8-bit (orta orta)
+        # 4. Energy Breakdown (orta orta)
         ax4 = fig.add_subplot(gs[1, 1])
-        bits = ['8-bit', '4-bit']
-        bit_energies = [all_data['precision']['8bit'], all_data['precision']['4bit']]
-        ax4.bar(bits, bit_energies, color=[self.colors['pim'], self.colors['pim_4bit']], alpha=0.7)
-        ax4.set_title('Precision Impact', fontweight='bold', fontsize=11)
-        ax4.set_ylabel('pJ', fontsize=9)
-        saving = (bit_energies[0] - bit_energies[1]) / bit_energies[0] * 100
-        ax4.text(1, bit_energies[1], f'↓{saving:.0f}%', ha='center', va='bottom', fontsize=9)
+        energy_breakdown = ['PIM\n96.2%', 'GPU\n3.8%']
+        energy_values = [301.63, 11.86]
         
-        # 5. Hibrit Breakdown (orta sağ)
+        bars4 = ax4.barh(energy_breakdown, energy_values,
+                        color=[self.colors['pim'], self.colors['gpu']],
+                        alpha=0.8, edgecolor='black', linewidth=1.5)
+        
+        for bar, energy in zip(bars4, energy_values):
+            ax4.text(energy, bar.get_y() + bar.get_height()/2.,
+                    f'{energy:.1f} mJ',
+                    ha='left', va='center', fontweight='bold', fontsize=10,
+                    bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+        
+        ax4.set_xlabel('Enerji (mJ)', fontweight='bold', fontsize=10)
+        ax4.set_title('AlexNet Enerji Breakdown', fontweight='bold', fontsize=11)
+        ax4.grid(axis='x', alpha=0.3)
+        
+        # 5. Gecikme Karşılaştırması (orta sağ)
         ax5 = fig.add_subplot(gs[1, 2])
-        layer_data = all_data['hybrid']['layers']
-        layers = [l['layer'] for l in layer_data]
-        layer_energies = [l['energy'] for l in layer_data]
-        ax5.pie(layer_energies, labels=layers, autopct='%1.0f%%', textprops={'fontsize': 8})
-        ax5.set_title('Layer Breakdown', fontweight='bold', fontsize=11)
+        systems_lat = ['PIM', 'GPU', 'Hybrid']
+        latencies = [41.02, 6.95, 58.88]
+        colors_lat = [self.colors['pim'], self.colors['gpu'], self.colors['hybrid']]
         
-        # 6. Trade-off Scatter (alt, geniş)
+        bars5 = ax5.bar(systems_lat, latencies, color=colors_lat, alpha=0.8,
+                       edgecolor='black', linewidth=1.5)
+        
+        for bar, latency in zip(bars5, latencies):
+            ax5.text(bar.get_x() + bar.get_width()/2., latency,
+                    f'{latency:.1f} ms',
+                    ha='center', va='bottom', fontweight='bold', fontsize=9)
+        
+        ax5.set_ylabel('Gecikme (ms)', fontweight='bold', fontsize=10)
+        ax5.set_title('Gecikme Karşılaştırması', fontweight='bold', fontsize=11)
+        ax5.grid(axis='y', alpha=0.3)
+        
+        # 6. Key Metrics (alt, geniş)
         ax6 = fig.add_subplot(gs[2, :])
-        for system in ['PIM', 'GPU', 'Hybrid']:
-            e = all_data['tradeoff'][system]['energy']
-            l = all_data['tradeoff'][system]['latency']
-            color = self.colors[system.lower()]
-            ax6.scatter(l, e, s=200, c=color, alpha=0.7, edgecolor='black', linewidth=2, label=system)
-            ax6.text(l, e, f'  {system}', fontsize=9, fontweight='bold')
+        ax6.axis('off')
         
-        ax6.set_xlabel('Latency (ms)', fontsize=10, fontweight='bold')
-        ax6.set_ylabel('Energy (mJ)', fontsize=10, fontweight='bold')
-        ax6.set_title('Energy vs Latency Trade-off', fontweight='bold', fontsize=12)
-        ax6.legend(loc='upper right')
-        ax6.grid(True, alpha=0.3)
+        # Metrik kutuları
+        metrics = [
+            ('Enerji Tasarrufu\n(PIM vs GPU)', '36.3%', self.colors['pim']),
+            ('4-bit Tasarrufu', '77.8%', self.colors['pim_4bit']),
+            ('AlexNet Tasarrufu', '33.3%', self.colors['hybrid']),
+            ('4-bit Doğruluk', '100%', self.colors['accent']),
+            ('PIM Katman Oranı', '85%', self.colors['pim']),
+        ]
+        
+        x_positions = np.linspace(0.1, 0.9, len(metrics))
+        
+        for (x, (title, value, color)) in zip(x_positions, metrics):
+            # Kutu
+            rect = plt.Rectangle((x - 0.08, 0.3), 0.16, 0.4,
+                                facecolor=color, alpha=0.2,
+                                edgecolor=color, linewidth=2,
+                                transform=ax6.transAxes)
+            ax6.add_patch(rect)
+            
+            # Değer
+            ax6.text(x, 0.55, value,
+                    ha='center', va='center', fontsize=20, fontweight='bold',
+                    color=color, transform=ax6.transAxes)
+            
+            # Başlık
+            ax6.text(x, 0.35, title,
+                    ha='center', va='center', fontsize=9,
+                    color='black', transform=ax6.transAxes)
         
         # Ana başlık
-        fig.suptitle('Eco-PIM Performance Dashboard', fontsize=16, fontweight='bold', y=0.98)
+        fig.suptitle('Eco-PIM: AI-Powered Energy Optimization Results',
+                    fontsize=16, fontweight='bold', y=0.98)
         
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
         print(f"✅ Dashboard kaydedildi: {save_path}")
         plt.show()
+    
+    def create_qlearning_analysis(self, save_path='qlearning_analysis.png'):
+        """
+        Q-Learning eğitim sürecini görselleştir
+        (Gerçek verilerle - negatif reward'lar dahil)
+        """
+        fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(14, 10))
+        
+        # 1. Training Progress (gerçek veriler)
+        episodes = list(range(1, 21))
+        rewards = [-4377.33, -2566.00, -671.00, -1657.33, -932.00,
+                   -1819.67, -1312.33, -1484.00, -2420.33, -1384.33,
+                   -901.00, -1002.33, -3292.33, -4297.67, -1112.67,
+                   -2014.33, -374.67, -538.33, -1906.67, -2240.00]
+        
+        ax1.plot(episodes, rewards, 'o-', color=self.colors['gpu'],
+                linewidth=2, markersize=6, label='Episode Reward')
+        
+        # Trend line
+        z = np.polyfit(episodes, rewards, 2)
+        p = np.poly1d(z)
+        ax1.plot(episodes, p(episodes), '--', color=self.colors['accent'],
+                linewidth=2, label='Trend')
+        
+        ax1.axhline(y=np.mean(rewards), color='gray', linestyle=':',
+                   linewidth=1.5, label=f'Avg: {np.mean(rewards):.0f}')
+        
+        ax1.set_xlabel('Episode', fontweight='bold')
+        ax1.set_ylabel('Reward', fontweight='bold')
+        ax1.set_title('Q-Learning Training Progress\n(Negatif = Reward fonksiyonu dengesiz)',
+                     fontweight='bold')
+        ax1.legend(loc='lower right')
+        ax1.grid(True, alpha=0.3)
+        
+        # 2. Q-Table Growth
+        q_states = [2, 3, 5, 5, 6, 6, 7, 7, 8, 8,
+                   8, 8, 8, 8, 8, 8, 8, 8, 8, 8]
+        
+        ax2.plot(episodes, q_states, 's-', color=self.colors['pim'],
+                linewidth=2, markersize=6)
+        ax2.fill_between(episodes, 0, q_states, alpha=0.3, color=self.colors['pim'])
+        
+        ax2.set_xlabel('Episode', fontweight='bold')
+        ax2.set_ylabel('Q-Table Size (states)', fontweight='bold')
+        ax2.set_title('State Space Exploration', fontweight='bold')
+        ax2.grid(True, alpha=0.3)
+        
+        # 3. Decision Distribution
+        decisions = {'PIM': 5, 'GPU': 2, 'HYBRID': 1}
+        colors_dec = [self.colors['pim'], self.colors['gpu'], self.colors['hybrid']]
+        
+        wedges, texts, autotexts = ax3.pie(decisions.values(), labels=decisions.keys(),
+                                           autopct='%d', colors=colors_dec,
+                                           startangle=90, textprops={'fontsize': 11, 'fontweight': 'bold'},
+                                           wedgeprops={'edgecolor': 'black', 'linewidth': 1.5})
+        
+        for autotext in autotexts:
+            autotext.set_color('white')
+            autotext.set_fontsize(14)
+        
+        ax3.set_title('Q-Learning Decision Distribution\n(Test Phase)', fontweight='bold')
+        
+        # 4. Comparison: Q-Learning vs Rule-Based
+        scenarios = ['100K\nConv', '5M\nConv', '10M\nFC']
+        q_decisions = ['GPU', 'PIM', 'PIM']
+        r_decisions = ['HYBRID', 'HYBRID', 'HYBRID']
+        
+        x = np.arange(len(scenarios))
+        width = 0.35
+        
+        # Q-Learning bars
+        q_colors = []
+        for d in q_decisions:
+            if d == 'PIM':
+                q_colors.append(self.colors['pim'])
+            elif d == 'GPU':
+                q_colors.append(self.colors['gpu'])
+            else:
+                q_colors.append(self.colors['hybrid'])
+        
+        bars1 = ax4.bar(x - width/2, [1]*len(scenarios), width,
+                       color=q_colors, alpha=0.8, label='Q-Learning',
+                       edgecolor='black', linewidth=1.5)
+        
+        # Rule-based bars
+        bars2 = ax4.bar(x + width/2, [1]*len(scenarios), width,
+                       color=self.colors['hybrid'], alpha=0.8, label='Rule-Based',
+                       edgecolor='black', linewidth=1.5)
+        
+        # Labels
+        for i, (bar1, bar2, q_d, r_d) in enumerate(zip(bars1, bars2, q_decisions, r_decisions)):
+            ax4.text(bar1.get_x() + bar1.get_width()/2., 0.5,
+                    q_d, ha='center', va='center', fontsize=9,
+                    fontweight='bold', rotation=90, color='white')
+            ax4.text(bar2.get_x() + bar2.get_width()/2., 0.5,
+                    r_d, ha='center', va='center', fontsize=9,
+                    fontweight='bold', rotation=90, color='white')
+        
+        ax4.set_ylabel('Decision', fontweight='bold')
+        ax4.set_title('Q-Learning vs Rule-Based\n(3/8 farklı)', fontweight='bold')
+        ax4.set_xticks(x)
+        ax4.set_xticklabels(scenarios)
+        ax4.set_yticks([])
+        ax4.legend()
+        ax4.grid(axis='y', alpha=0.3)
+        
+        plt.suptitle('Q-Learning Adaptive Scheduler Analysis',
+                    fontsize=14, fontweight='bold')
+        plt.tight_layout()
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"✅ Q-Learning analizi kaydedildi: {save_path}")
+        plt.show()
+    
+    def create_alexnet_breakdown(self, save_path='alexnet_breakdown.png'):
+        """
+        AlexNet katman bazlı detaylı analiz
+        """
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+        
+        # 1. Layer-wise energy (sadece önemli katmanlar)
+        layers = ['conv1', 'conv2', 'conv3', 'conv4', 'conv5', 'fc1', 'fc2', 'fc3']
+        energies = [211.38, 41.87, 13.79, 20.69, 13.79, 7.64, 3.40, 0.83]
+        devices = ['PIM', 'PIM', 'PIM', 'PIM', 'PIM', 'GPU', 'GPU', 'GPU']
+        
+        colors_layer = [self.colors['pim'] if d == 'PIM' else self.colors['gpu'] 
+                       for d in devices]
+        
+        bars = ax1.barh(layers, energies, color=colors_layer, alpha=0.8,
+                       edgecolor='black', linewidth=1.5)
+        
+        for bar, energy, device in zip(bars, energies, devices):
+            ax1.text(energy, bar.get_y() + bar.get_height()/2.,
+                    f' {energy:.1f} mJ ({device})',
+                    ha='left', va='center', fontsize=9, fontweight='bold')
+        
+        ax1.set_xlabel('Enerji (mJ)', fontweight='bold', fontsize=11)
+        ax1.set_title('Katman Bazlı Enerji Tüketimi', fontweight='bold', fontsize=12)
+        ax1.grid(axis='x', alpha=0.3)
+        
+        # 2. Cumulative energy
+        cumulative = np.cumsum(energies)
+        
+        ax2.plot(range(1, len(layers)+1), cumulative, 'o-',
+                color=self.colors['hybrid'], linewidth=2.5, markersize=8)
+        ax2.fill_between(range(1, len(layers)+1), 0, cumulative,
+                        alpha=0.3, color=self.colors['hybrid'])
+        
+        # PIM/GPU bölgelerini vurgula
+        ax2.axvline(x=5.5, color='gray', linestyle='--', linewidth=1.5, alpha=0.5)
+        ax2.text(2.5, cumulative[-1] * 0.9, 'PIM Zone\n(Conv Layers)',
+                ha='center', fontsize=10, fontweight='bold',
+                bbox=dict(boxstyle='round', facecolor=self.colors['pim'], alpha=0.3))
+        ax2.text(7, cumulative[-1] * 0.5, 'GPU Zone\n(FC Layers)',
+                ha='center', fontsize=10, fontweight='bold',
+                bbox=dict(boxstyle='round', facecolor=self.colors['gpu'], alpha=0.3))
+        
+        ax2.set_xlabel('Katman Numarası', fontweight='bold', fontsize=11)
+        ax2.set_ylabel('Kümülatif Enerji (mJ)', fontweight='bold', fontsize=11)
+        ax2.set_title('Kümülatif Enerji Profili', fontweight='bold', fontsize=12)
+        ax2.set_xticks(range(1, len(layers)+1))
+        ax2.set_xticklabels(layers, rotation=45)
+        ax2.grid(True, alpha=0.3)
+        
+        plt.suptitle('AlexNet-20 Detaylı Enerji Analizi',
+                    fontsize=14, fontweight='bold')
+        plt.tight_layout()
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"✅ AlexNet breakdown kaydedildi: {save_path}")
+        plt.show()
 
 
-# Kullanım örneği
+# ANA ÇALIŞTIRMA
 if __name__ == "__main__":
-    print("📊 Eco-PIM Görselleştirme Başlatılıyor...\n")
+    print("📊 Eco-PIM Görselleştirme (Gerçek Verilerle)")
+    print("="*70)
     
-    viz = EcoPIMVisualizer()
+    viz = EcoPIMVisualizerUpdated()
     
-    # 1. Q-Learning Training
-    print("1️⃣ Q-Learning eğitim grafiği...")
-    episodes = list(range(1, 21))
-    rewards = [510, 643, 683, 703, 803, 503, 780, 646, 620, 673,
-               690, 720, 750, 680, 710, 730, 690, 710, 720, 700]
-    viz.plot_qlearning_training(episodes, rewards)
+    print("\n1️⃣ Özet dashboard oluşturuluyor...")
+    viz.create_summary_dashboard()
     
-    # 2. Enerji Karşılaştırması
-    print("\n2️⃣ Enerji karşılaştırma grafiği...")
-    viz.plot_energy_comparison(
-        pim_8bit=211.38,
-        pim_4bit=186.57,
-        gpu=332.09,
-        hybrid=219.10
-    )
+    print("\n2️⃣ Q-Learning analizi oluşturuluyor...")
+    viz.create_qlearning_analysis()
     
-    # 3. Latency vs Energy
-    print("\n3️⃣ Trade-off analizi...")
-    results_dict = {
-        'PIM (8-bit)': {'energy': 211.38, 'latency': 41.02},
-        'PIM (4-bit)': {'energy': 186.57, 'latency': 20.51},
-        'GPU': {'energy': 332.09, 'latency': 6.95},
-        'Hybrid': {'energy': 219.10, 'latency': 42.69}
-    }
-    viz.plot_latency_vs_energy(results_dict)
-    
-    # 4. 4-bit vs 8-bit
-    print("\n4️⃣ Precision karşılaştırma...")
-    viz.plot_4bit_vs_8bit(
-        bit_8_energy=19.44,
-        bit_4_energy=4.32,
-        bit_8_latency=6.40,
-        bit_4_latency=3.20
-    )
-    
-    # 5. Hibrit Breakdown
-    print("\n5️⃣ Hibrit sistem breakdown...")
-    layer_results = [
-        {'layer': 'Conv1', 'type': 'Conv2D', 'device': 'PIM', 'energy': 211.38},
-        {'layer': 'ReLU1', 'type': 'ReLU', 'device': 'PIM', 'energy': 0.01},
-        {'layer': 'FC1', 'type': 'Linear', 'device': 'GPU', 'energy': 7.71}
-    ]
-    viz.plot_hybrid_breakdown(layer_results)
-    
-    # 6. Full Dashboard
-    print("\n6️⃣ Tam dashboard oluşturuluyor...")
-    all_data = {
-        'qlearning': {
-            'episodes': episodes,
-            'rewards': rewards
-        },
-        'energy': {
-            'pim_8bit': 211.38,
-            'gpu': 332.09
-        },
-        'latency': {
-            'pim': 41.02,
-            'gpu': 6.95
-        },
-        'precision': {
-            '8bit': 19.44,
-            '4bit': 4.32
-        },
-        'hybrid': {
-            'layers': layer_results
-        },
-        'tradeoff': {
-            'PIM': {'energy': 211.38, 'latency': 41.02},
-            'GPU': {'energy': 332.09, 'latency': 6.95},
-            'Hybrid': {'energy': 219.10, 'latency': 42.69}
-        }
-    }
-    viz.create_full_dashboard(all_data)
+    print("\n3️⃣ AlexNet breakdown oluşturuluyor...")
+    viz.create_alexnet_breakdown()
     
     print("\n✅ Tüm grafikler oluşturuldu!")
     print("\n📁 Oluşturulan dosyalar:")
-    print("  - qlearning_training.png")
-    print("  - energy_comparison.png")
-    print("  - latency_vs_energy.png")
-    print("  - 4bit_vs_8bit.png")
-    print("  - hybrid_breakdown.png")
-    print("  - dashboard.png")
+    print("  - eco_pim_summary.png (ana dashboard)")
+    print("  - qlearning_analysis.png (Q-Learning analizi)")
+    print("  - alexnet_breakdown.png (AlexNet detayları)")

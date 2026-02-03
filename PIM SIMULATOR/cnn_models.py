@@ -304,14 +304,14 @@ if __name__ == "__main__":
     CNNModels.list_models()
     
     # AlexNet'i al
-    print("\n📋 AlexNet Katmanları:")
+    print("\n AlexNet Katmanları:")
     alexnet = CNNModels.get_model('alexnet')
     
     for i, layer in enumerate(alexnet, 1):
         print(f"{i}. {layer['name']:<12} ({layer['type']})")
     
     # Model bilgisi
-    print("\n📊 Model İstatistikleri:")
+    print("\nModel İstatistikleri:")
     for model_name in ['alexnet', 'vgg16', 'resnet50', 'mobilenet']:
         info = CNNModels.get_model_info(model_name)
         print(f"\n{model_name.upper()}:")
