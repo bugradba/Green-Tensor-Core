@@ -89,6 +89,56 @@ Key observations:
 
 ---
 
+## 🎚️ Layer-wise Precision Selection (with measured accuracy)
+
+4-bit PIM saves energy, but it is only useful if accuracy survives. Instead of assuming an accuracy loss,
+the planner **measures** it: for every candidate plan it runs integer inference with exactly the arithmetic
+the PIM model charges for (`PIMCluster.mac_8bit`), on a real dataset.
+
+- **Model / data:** small CNN (conv–conv–pool–fc–fc) trained in pure NumPy on scikit-learn's handwritten
+  digits (offline, no PyTorch needed).
+- **Choices per layer:** `GPU` (INT8) · `PIM8` · `PIM4`
+- **Objective:** minimum energy, subject to accuracy ≥ INT8 accuracy − budget, and optionally latency ≤ deadline.
+- **Two 4-bit schemes, same hardware cost (one 4×4 LUT multiply):**
+  - `truncate` — the pPIM/simulator semantics (keep the high nibble of the 8-bit code)
+  - `round` — round to a 4-bit code with its own scale
+
+**Accuracy** (5 random train/test splits, mean ± std):
+
+| Setting | Accuracy |
+|---|---|
+| Float32 | 98.52 ± 0.20 % |
+| INT8, all layers | 98.56 ± 0.22 % |
+| 4-bit `truncate`, all layers | 97.56 ± 0.74 % |
+| 4-bit `round`, all layers | 98.26 ± 0.28 % |
+
+**Energy saving vs. all-PIM8 under an accuracy budget** (5 splits):
+
+| Budget | `truncate` | `round` |
+|---|---|---|
+| ≤ 0.5 pt | 70.5 % (loss 0.33 pt) | 73.7 % (loss 0.15 pt) |
+| ≤ 1.0 pt | 72.1 % (loss 0.52 pt) | 73.7 % (loss 0.30 pt) |
+
+Findings:
+
+- **Sensitivity is very uneven.** Under `truncate`, putting only `fc1` in 4-bit costs 1.1 pt, while `conv1` costs 0.2 pt
+  and `conv2` (82 % of the 8-bit PIM energy) costs 0.4 pt. Choosing layer by layer keeps most of the saving at a fraction of the loss.
+- **Accuracy losses are not additive.** `conv1+conv2+fc1` together lose 0.93 pt, less than `fc1` alone, so every plan's accuracy is measured rather than summed.
+- **Rounding beats truncation at zero extra hardware cost.** The high-nibble scheme in the pPIM paper discards precision that a rounded 4-bit code keeps.
+- **Latency adds a real trade-off.** PIM is about 3× slower than the GPU here. Under a tight deadline the optimum moves the heaviest layer (`conv2`) to the GPU and keeps the cheap layers on 4-bit PIM.
+- **Exhaustive vs. greedy.** The exhaustive search gives the exact optimum (3^L plans; 81 here). The greedy planner, meant for large networks, found the optimum in 170 of 174 scenarios. It missed only where several layers had to switch to 4-bit together, and when it misses the gap can be large, so use exhaustive search when L is small.
+
+<p align="center"><img src="PIM SIMULATOR/precision_pareto.png" width="850"></p>
+
+```bash
+cd "PIM SIMULATOR"
+python precision_experiment.py          # full experiment, ~1.5 min → precision_pareto.png, precision_results.json
+python precision_experiment.py --quick  # seed 0 only
+python quantization.py                  # retrain the CNN (digits_cnn.npz)
+```
+
+---
+
 ## 🛠️ Installation & Quick Start
 
 ### Prerequisites
@@ -108,6 +158,7 @@ python results.py                       # print all results
 python visualize_scheduler.py           # regenerate the charts
 python advanced_training.py             # retrain the Q-Learning scheduler
 python demo_simulator.py                # step-by-step demo
+python precision_experiment.py          # layer-wise precision experiment
 ```
 
 ```
@@ -121,6 +172,10 @@ Green-Tensor-Core/
 │   │   └── adaptive_scheduler.py   # Q-Learning agent
 │   ├── advanced_training.py        # Q-Learning training script
 │   ├── results.py                  # single source of truth for all reported numbers
+│   ├── quantization.py             # NumPy CNN + integer 8/4-bit inference (PIM semantics)
+│   ├── precision_planner.py        # layer-wise device + precision planner (exhaustive / greedy)
+│   ├── precision_experiment.py     # accuracy/energy/latency experiment, Pareto chart
+│   ├── digits_cnn.npz              # trained CNN weights
 │   ├── visualize_scheduler.py      # charts generated from results.py
 │   ├── demo_simulator.py           # printed demo walkthrough
 │   └── adaptive_precision.py       # precision/energy trade-off experiments
