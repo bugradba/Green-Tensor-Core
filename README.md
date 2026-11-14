@@ -4,8 +4,6 @@
 
 > *"Moving the processor to the data, instead of moving data to the processor."*
 
-[View Demo](#) • [Documentation](#) • [Report Bug](#)
-
 ---
 
 ## 🚀 Executive Summary
@@ -27,8 +25,6 @@ By offloading heavy **vector-matrix operations** to the memory module and keepin
 ## 🧠 System Architecture
 
 The system follows a **heterogeneous computing model** with three main layers:
-
-> 📌 *(Place your architecture diagram in `docs/architecture_diagram.png` and reference it here)*
 
 ### 1. Host CPU (Control Plane)
 
@@ -63,11 +59,33 @@ A runtime scheduler that analyzes incoming tasks:
 
 ## 📊 Simulation Results
 
-Benchmarked against **CPU-only architectures** using synthetic workloads (ResNet-50-like matrix operations):
+All numbers below are produced by the simulator (`python results.py`); nothing is hand-entered.
+Baseline: NVIDIA Jetson Nano (roofline model, optimistic data reuse — i.e. a *best-case* GPU).
 
-- ⚡ **Energy Savings:** ~**42%** reduction in total energy consumption  
-- ⏱️ **Latency:** **1.8× speedup** for large batch workloads  
-- 📉 **Bus Utilization:** **60% reduction** in memory bus traffic  
+**AlexNet conv1 (stride 4, 105.4 M MACs)**
+
+| Platform | Energy | Latency |
+|---|---|---|
+| PIM 8-bit | 2.05 mJ | 2.64 ms |
+| PIM 4-bit | 0.46 mJ | 1.32 ms |
+| GPU (Jetson Nano) | 2.71 mJ | 0.45 ms |
+
+**Full AlexNet (batch = 1)**
+
+| Strategy | Energy | Latency | Energy vs GPU-only |
+|---|---|---|---|
+| GPU-only | 43.41 mJ | 6.96 ms | — |
+| PIM-only | 22.36 mJ | 28.45 ms | −48.5 % |
+| Rule-based hybrid | 36.03 mJ | 29.27 ms | −17.0 % |
+| Q-Learning hybrid | 29.47 mJ | 6.07 ms | −32.1 % |
+
+Key observations:
+
+- PIM uses less energy per layer, but is slower than the GPU on large convolutions.
+- With batch = 1, fully-connected layers are **memory-bound** on the GPU, so PIM wins there on both energy and latency. The learned policy discovers this (FC → PIM, Conv → GPU), while the static rule (FC → GPU) does not.
+- 4-bit precision scaling cuts MAC energy by 78 %, at a mean relative error of ~16 % per multiplication.
+
+<p align="center"><img src="PIM SIMULATOR/eco_pim_summary.png" width="800"></p>
 
 ---
 
@@ -78,34 +96,44 @@ Benchmarked against **CPU-only architectures** using synthetic workloads (ResNet
 - Python **3.8+**
 - `pip`
 
-### Steps
-
-#### 1️⃣ Clone the Repository
-
 ```bash
 git clone https://github.com/bugradba/Green-Tensor-Core.git
 cd Green-Tensor-Core
 pip install -r requirements.txt
-python src/main.py --mode hybrid --workload large_matrix
 
+pytest                                  # correctness tests
 
-Green-Tensor-Core/
-├── PIM SIMULATOR/
-│   ├── Q_Learning/                 # Q-Learning based scheduling utilities
-│   │   ├── (Q_Learning içerikleri) # Q-learning scripts & helpers
-│   │
-│   ├── adaptive_scheduler.py       # Adaptive scheduler module
-│   ├── baseline_models.py          # Baseline (CPU-only) models
-│   ├── hybrid_scheduler.py         # Hybrid CPU + PIM scheduler logic
-│   ├── pim_simulator.py            # Core processing-in-memory simulation engine
-│   ├── adaptive_precision.py       # Precision/energy trade-off experiments
-│   ├── test_simulator.py           # Simulation tests & benchmarks
-│   └── visualize_scheduler.py      # Visualization tools for scheduler behavior
-├── README.md                       # Project overview and docs
-└── requirements.txt                # Python dependencies
-
+cd "PIM SIMULATOR"
+python results.py                       # print all results
+python visualize_scheduler.py           # regenerate the charts
+python advanced_training.py             # retrain the Q-Learning scheduler
+python demo_simulator.py                # step-by-step demo
 ```
 
+```
+Green-Tensor-Core/
+├── PIM SIMULATOR/
+│   ├── pim_simulator.py            # PIM core / cluster / array model (pPIM-based)
+│   ├── baseline_models.py          # GPU & CPU roofline baselines
+│   ├── cnn_models.py               # AlexNet, VGG16, ResNet50, MobileNetV2 layer definitions
+│   ├── hybrid_scheduler.py         # simulate_layer(), rule-based & Q-Learning hybrid schedulers
+│   ├── Q_Learning/
+│   │   └── adaptive_scheduler.py   # Q-Learning agent
+│   ├── advanced_training.py        # Q-Learning training script
+│   ├── results.py                  # single source of truth for all reported numbers
+│   ├── visualize_scheduler.py      # charts generated from results.py
+│   ├── demo_simulator.py           # printed demo walkthrough
+│   └── adaptive_precision.py       # precision/energy trade-off experiments
+├── tests/                          # pytest correctness tests
+├── README.md
+└── requirements.txt
+```
+
+### Modelling assumptions
+
+- PIM: per-MAC energy/latency from the pPIM paper; MACs split evenly over 256 clusters; data movement charged per 8 KB DRAM row (RowClone), not per MAC.
+- GPU/CPU: latency = max(compute time, DRAM transfer time); average power never exceeds TDP; each tensor is read from DRAM once.
+- Q-Learning: state = (workload size, layer type, deadline); reward = energy saving vs GPU − latency penalty, both computed by the simulators.
 
 ##  System Architecture
 
@@ -120,19 +148,21 @@ The architectural diagram below illustrates the details of this integration:
 ###  Operational Logic
 To overcome the **Memory Wall** bottleneck, the scheduler dynamically analyzes tasks (profiling) and routes them based on the following logic:
 
-IF (\text{data\_intensive}) \rightarrow \text{PIM (Processing-in-Memory)}
-ELSE \rightarrow \text{CPU (Host Processor)}
+```
+IF data_intensive  → PIM (Processing-in-Memory)
+ELSE               → CPU / GPU (Host Processor)
+```
 
 
 
-###Contact & Acknowledgements
+### Contact & Acknowledgements
 
-- **Developer: Muhammed Buğra Demirbaş
-- **Context: Developed for Tomorrow's Technology Leaders (Sustainability Track).
+- **Developer:** Muhammed Buğra Demirbaş
+- **Context:** Developed for Tomorrow's Technology Leaders (Sustainability Track).
 
-- **LinkedIn: https://www.linkedin.com/in/m-bugra-demirbas/
+- **LinkedIn:** https://www.linkedin.com/in/m-bugra-demirbas/
 
-- **Email: mbugrademirbas@gmail.com
+- **Email:** mbugrademirbas@gmail.com
 
 
 

@@ -9,9 +9,46 @@ Action: {PIM, GPU, HYBRID}
 Reward: energy_saved - latency_penalty
 """
 
+import ast
 import numpy as np
 import json
 from collections import defaultdict
+
+# Modellerde (cnn_models) ve eğitim verisinde farklı adlar kullanılıyor.
+# Hepsi tek bir kanonik ada indirgenir; aksi halde çıkarımda durum Q-table'da
+# hiç bulunmaz ve ajan her zaman varsayılan aksiyonu (PIM) seçer.
+LAYER_TYPE_ALIASES = {
+    'Conv2D': 'Conv', 'Conv': 'Conv',
+    'Linear': 'FC', 'FC': 'FC',
+    'MaxPool': 'Pool', 'AvgPool': 'Pool', 'Pool': 'Pool',
+}
+
+
+def normalize_layer_type(layer_type):
+    return LAYER_TYPE_ALIASES.get(layer_type, layer_type)
+
+
+def simulate_costs(pim_simulator, gpu_simulator, workload_size, data_elems=None):
+    """
+    Bir iş yükünün PIM ve GPU maliyetini gerçek simülatörlerle hesaplar.
+
+    data_elems verilmezse, GPU baz modelindeki varsayımla tutarlı olarak
+    her 64 MAC'te bir elemanın bellekten taşındığı varsayılır.
+
+    Returns:
+        energy_pim, energy_gpu (mJ), latency_pim, latency_gpu (ms)
+    """
+    if pim_simulator is None or gpu_simulator is None:
+        raise ValueError(
+            "train_episode gerçek simülatör ister: "
+            "train_episode(PIMArray(), GPUBaseline(), workloads)"
+        )
+    if data_elems is None:
+        data_elems = max(1, workload_size // 64)
+    pim = pim_simulator.mac_workload(workload_size, data_elems, precision=8)
+    gpu = gpu_simulator.model_inference(workload_size, data_elems * 8)
+    return (pim['energy_total_mj'], gpu['total_energy_mj'],
+            pim['latency_ms'], gpu['total_latency_ms'])
 
 class AdaptiveQLearningScheduler:
     """
@@ -81,8 +118,8 @@ class AdaptiveQLearningScheduler:
         else:
             workload_cat = 'large'
         
-        # Layer type (doğrudan kullan)
-        layer_cat = layer_type
+        # Layer type (kanonik ada indir)
+        layer_cat = normalize_layer_type(layer_type)
         
         # Deadline kategorisi
         if deadline_ms is None:
@@ -209,28 +246,28 @@ class AdaptiveQLearningScheduler:
         Bir eğitim episode'u çalıştır.
         
         Args:
-            pim_simulator: PIM simülatörü
-            gpu_simulator: GPU simülatörü
+            pim_simulator: PIMArray instance
+            gpu_simulator: GPUBaseline instance
             workload_data: [(workload_size, layer_type, deadline), ...]
+                           veya (workload_size, layer_type, deadline, data_elems)
         
         Returns:
             episode_reward: Episode toplam reward'u
         """
         episode_reward = 0
         
-        for workload_size, layer_type, deadline in workload_data:
+        for item in workload_data:
+            workload_size, layer_type, deadline = item[:3]
+            data_elems = item[3] if len(item) > 3 else None
             # State'i discretize et
             state = self._discretize_state(workload_size, layer_type, deadline)
             
             # Action seç (epsilon-greedy)
             action = self.select_action(state, training=True)
             
-            # Simüle et (basitleştirilmiş)
-            # Gerçek sistemde: pim_simulator.process(workload)
-            energy_pim = workload_size * 0.0001  # Örnek değer
-            energy_gpu = workload_size * 0.00015
-            latency_pim = workload_size * 0.00002
-            latency_gpu = workload_size * 0.000003
+            # Gerçek PIM/GPU simülasyonu
+            energy_pim, energy_gpu, latency_pim, latency_gpu = simulate_costs(
+                pim_simulator, gpu_simulator, workload_size, data_elems)
             
             # Reward hesapla
             reward = self.calculate_reward(
@@ -315,7 +352,7 @@ class AdaptiveQLearningScheduler:
         # Q-table'ı yükle
         self.q_table = defaultdict(lambda: np.zeros(3))
         for state_str, q_values in model_data['q_table'].items():
-            state = eval(state_str)  # String'i tuple'a çevir
+            state = ast.literal_eval(state_str)  # Güvenli: sadece literal tuple
             self.q_table[state] = np.array(q_values)
         
         # Hyperparameters
@@ -333,6 +370,12 @@ class AdaptiveQLearningScheduler:
 
 # Kullanım örneği (standalone test)
 if __name__ == "__main__":
+    import os
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from pim_simulator import PIMArray
+    from baseline_models import GPUBaseline
+
     print(" Q-Learning Scheduler Demo")
     print("="*60)
     
@@ -355,8 +398,9 @@ if __name__ == "__main__":
     
     # 10 episode eğit
     print("\n Q-Learning Eğitimi Başlıyor...")
-    for episode in range():
-        reward = scheduler.train_episode(None, None, training_workloads * 5)
+    pim, gpu = PIMArray(), GPUBaseline()
+    for episode in range(10):
+        reward = scheduler.train_episode(pim, gpu, training_workloads * 5)
         print(f"Episode {episode+1}: Reward = {reward:.2f}, Epsilon = {scheduler.epsilon:.3f}")
     
     # İstatistikler
