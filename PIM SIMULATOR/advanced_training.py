@@ -4,10 +4,16 @@ Geliştirilmiş Q-Learning Eğitimi
 Bu script Q-Learning'i daha çeşitli senaryolarla eğitir.
 """
 
-from Q_Learning.adaptive_scheduler import AdaptiveQLearningScheduler 
+import os
 import random
 
-def train_qlearning_extensive():
+from Q_Learning.adaptive_scheduler import AdaptiveQLearningScheduler
+from pim_simulator import PIMArray
+from baseline_models import GPUBaseline
+
+_HERE = os.path.dirname(os.path.abspath(__file__))
+
+def train_qlearning_extensive(episodes=50, seed=42):
     """
     Kapsamlı Q-Learning eğitimi
     
@@ -68,13 +74,18 @@ def train_qlearning_extensive():
     print(f"\n{'Episode':<10} {'Reward':<15} {'Epsilon':<15} {'Q-States':<12} {'Avg Reward':<15}")
     print("-" * 75)
     
-    for episode in range(50):
+    random.seed(seed)
+    import numpy as np
+    np.random.seed(seed)
+    pim, gpu = PIMArray(), GPUBaseline()
+
+    for episode in range(episodes):
         # Her episode'da workload'ları karıştır ve çoğalt
         episode_workloads = base_workloads * 2  # 48 karar
         random.shuffle(episode_workloads)
         
         # Episode çalıştır
-        reward = scheduler.train_episode(None, None, episode_workloads)
+        reward = scheduler.train_episode(pim, gpu, episode_workloads)
         stats = scheduler.get_statistics()
         
         # Her 5 episode'da bir yazdır
@@ -108,7 +119,7 @@ def train_qlearning_extensive():
         print(f"... ve {len(scheduler.q_table) - 15} state daha")
     
     # Modeli kaydet
-    scheduler.save_model('adaptive_scheduler_trained_v2.json')
+    scheduler.save_model(os.path.join(_HERE, 'adaptive_scheduler_trained_v2.json'))
     print(f"\n✅ Geliştirilmiş model kaydedildi: adaptive_scheduler_trained_v2.json")
     
     # Test predictions
@@ -140,5 +151,5 @@ if __name__ == "__main__":
     print("\n" + "="*70)
     print("🎉 EĞİTİM TAMAMLANDI!")
     print("="*70)
-    print("\n💡 Şimdi test_simulator.py'yi çalıştırabilirsiniz.")
-    print("   Yeni model (v2) otomatik yüklenecek ve daha iyi sonuçlar verecek!")
+    print("\n💡 Şimdi demo_simulator.py dosyasını çalıştırabilirsiniz.")
+    print("   AdvancedHybridScheduler yeni modeli (v2) otomatik yükler.")

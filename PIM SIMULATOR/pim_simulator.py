@@ -1,5 +1,4 @@
 import numpy as np
-import time
 
 class PIM_Core:
     """
@@ -56,56 +55,7 @@ class PIM_Core:
         energy_pj = self.power_mw * self.delay_ns
 
         return result, energy_pj, self.delay_ns
-    
-    def mac_8bit(self, a_8bit, b_8bit, accumulator=0, precision=8):
-        """
-        8-bit Multiply-Accumulate işlemi.
-        """
-        total_energy = 0
-        total_latency = 0
-        result = 0 # Başlangıç değeri
 
-        if precision == 8:
-            # 8-bit tam hassasiyet
-            aH, aL = (a_8bit >> 4) & 0xF, a_8bit & 0xF
-            bH, bL = (b_8bit >> 4) & 0xF, b_8bit & 0xF
-            
-            # Stage 1-4: Partial products
-            V0, e0, l0 = self.cores[0].multiply_4bit(aL, bL)
-            V1, e1, l1 = self.cores[1].multiply_4bit(aL, bH)
-            V2, e2, l2 = self.cores[2].multiply_4bit(aH, bL)
-            V3, e3, l3 = self.cores[3].multiply_4bit(aH, bH)
-            
-            # Stage 5-8: Accumulation
-            # BURADA int() KULLANARAK TAŞMAYI ENGELLİYORUZ
-            result = int(V0) + (int(V1) << 4) + (int(V2) << 4) + (int(V3) << 8)
-            result += accumulator
-            
-            total_energy = (e0 + e1 + e2 + e3) + (5 * self.cores[0].power_mw * 0.8)
-            total_latency = self.mac_delay_ns
-            
-        elif precision == 4:
-            # 4-bit precision scaling (Approximate)
-            aH = (a_8bit >> 4) & 0xF
-            bH = (b_8bit >> 4) & 0xF
-            
-            # Çarpma işlemi
-            V3, e3, l3 = self.cores[0].multiply_4bit(aH, bH)
-            
-            # --- DÜZELTME BURADA ---
-            # V3 numpy.uint8 tipinde olduğu için shift edilince 0 oluyordu.
-            # int(V3) diyerek onu normal sayıya çevirip öyle kaydırıyoruz.
-            result = (int(V3) << 8) + accumulator 
-            
-            total_energy = e3 + (self.cores[0].power_mw * 0.8)
-            total_latency = 3.2 # Daha kısa pipeline
-            
-        else:
-            raise ValueError("Precision 4 veya 8 olmalı")
-        
-        return int(result) & 0xFFFF, total_energy, total_latency
-
-    
 
 class PIMCluster():
     """
@@ -193,102 +143,172 @@ class PIMCluster():
         
          return int(result) & 0xFFFF, total_energy, total_latency
 
+
+
+# ---------------------------------------------------------------------------
+# Katman boyut / iş yükü yardımcıları
+# Tüm modüller (scheduler, testler, görselleştirme) MAC sayısını buradan alır,
+# böylece stride/padding her yerde aynı şekilde hesaba katılır.
+# ---------------------------------------------------------------------------
+
+def conv_output_hw(H, W, Kh, Kw, stride=1, padding=0):
+    """Conv çıkış yüksekliği/genişliği: floor((H + 2P - K) / S) + 1"""
+    if stride < 1:
+        raise ValueError("stride >= 1 olmalı")
+    out_H = (H + 2 * padding - Kh) // stride + 1
+    out_W = (W + 2 * padding - Kw) // stride + 1
+    if out_H <= 0 or out_W <= 0:
+        raise ValueError(f"Geçersiz conv boyutu: giriş {H}x{W}, kernel {Kh}x{Kw}")
+    return out_H, out_W
+
+
+def conv_stats(input_shape, kernel_shape, stride=1, padding=0):
+    """
+    Bir Conv2D katmanının MAC sayısı ve taşınan veri miktarı (eleman cinsinden).
+
+    Returns:
+        dict: total_macs, out_shape, input_elems, weight_elems, output_elems
+    """
+    C_out, C_in_k, Kh, Kw = kernel_shape
+    C_in, H, W = input_shape
+    if C_in != C_in_k:
+        raise ValueError(f"Kanal uyuşmazlığı: input C={C_in}, kernel C_in={C_in_k}")
+    out_H, out_W = conv_output_hw(H, W, Kh, Kw, stride, padding)
+    total_outputs = C_out * out_H * out_W
+    return {
+        'total_macs': total_outputs * C_in * Kh * Kw,
+        'out_shape': (C_out, out_H, out_W),
+        'input_elems': C_in * H * W,
+        'weight_elems': C_out * C_in * Kh * Kw,
+        'output_elems': total_outputs,
+    }
+
+
+def layer_workload(layer):
+    """
+    Bir katman sözlüğünden (cnn_models formatı) iş yükü çıkarır.
+
+    Returns:
+        (total_macs, data_elems): MAC/işlem sayısı ve bellekten taşınan eleman
+        sayısı. Şekil bilgisi olmayan katmanlarda (None, None) döner.
+    """
+    t = layer.get('type')
+    if t in ('Conv2D', 'Conv') and 'input' in layer and 'kernel' in layer:
+        st = conv_stats(layer['input'], layer['kernel'],
+                        layer.get('stride', 1), layer.get('padding', 0))
+        return st['total_macs'], st['input_elems'] + st['weight_elems'] + st['output_elems']
+    if t in ('Linear', 'FC') and 'in_features' in layer and 'out_features' in layer:
+        i, o = layer['in_features'], layer['out_features']
+        return i * o, i * o + i + o
+    if 'input' in layer:
+        # Eleman bazlı katmanlar (ReLU, Pool, Dropout, BatchNorm): eleman başına 1 işlem
+        n = int(np.prod(layer['input']))
+        return n, 2 * n
+    return None, None
+
+
 class PIMArray:
     """
     256 cluster'dan oluşan tam PIM chip simülasyonu.
     """
+    # DRAM satır boyutu (byte). RowClone/LISA bir satırı bütün olarak kopyalar.
+    ROW_SIZE_BYTES = 8192
+
     def __init__(self, num_clusters=256, technology_node=28):
         self.clusters = [PIMCluster(technology_node) for _ in range(num_clusters)]
         self.num_clusters = num_clusters
 
-
-
-        # Memory communication (pPIM: A Programmable Processor-in-Memory Architecture 
-        # With Precision-Scaling for Deep Learning Table 1)
-        # Memory communication (paper Table 1)
+        # Memory communication (pPIM: A Programmable Processor-in-Memory Architecture
+        # With Precision-Scaling for Deep Learning, Table 1) — satır kopyası başına maliyet
         self.intra_subarray_energy_uj = 0.028  # RowClone
         self.intra_subarray_latency_ns = 63.0
-        
+
         self.inter_subarray_energy_uj = 0.09  # LISA (1 hop)
         self.inter_subarray_latency_ns = 148.5
 
-    def convolution_layer(self, input_shape, kernel_shape, precision=8):
+    def mac_workload(self, total_macs, data_elems=0, precision=8):
+        """
+        Genel bir MAC iş yükünün PIM maliyeti.
+
+        Args:
+            total_macs: MAC sayısı
+            data_elems: Subarray'ler arasında taşınan eleman sayısı
+                        (input + weight + output). Her eleman `precision` bit.
+            precision: 8 veya 4
+
+        Varsayımlar:
+            - MAC'ler cluster'lara eşit dağılır, cluster'lar paralel çalışır.
+            - Veri hareketi RowClone ile satır (8 KB) bazında yapılır; maliyet
+              MAC başına değil, kopyalanan satır başına ödenir.
+            - Satır kopyaları cluster sayısı kadar paralel yürür.
+        """
+        _, mac_energy_pj, mac_latency_ns = self.clusters[0].mac_8bit(128, 128, 0, precision)
+
+        macs_per_cluster = -(-total_macs // self.num_clusters)  # ceil
+
+        compute_energy_mj = (total_macs * mac_energy_pj) / 1e9  # pJ -> mJ
+        compute_latency_ms = (macs_per_cluster * mac_latency_ns) / 1e6  # ns -> ms
+
+        data_bytes = data_elems * precision / 8
+        rows = int(-(-data_bytes // self.ROW_SIZE_BYTES))
+        comm_energy_mj = (rows * self.intra_subarray_energy_uj) / 1e3  # uJ -> mJ
+        comm_latency_ms = (-(-rows // self.num_clusters) * self.intra_subarray_latency_ns) / 1e6
+
+        latency_ms = compute_latency_ms + comm_latency_ms
+        energy_mj = compute_energy_mj + comm_energy_mj
+        return {
+            'precision': precision,
+            'total_macs': total_macs,
+            'rows_moved': rows,
+            'latency_ms': latency_ms,
+            'energy_compute_mj': compute_energy_mj,
+            'energy_communication_mj': comm_energy_mj,
+            'energy_total_mj': energy_mj,
+            # mJ / s = mW
+            'power_mw': energy_mj / (latency_ms / 1000) if latency_ms > 0 else 0,
+        }
+
+    def convolution_layer(self, input_shape, kernel_shape, precision=8, stride=1, padding=0):
         """
         Bir CNN katmanını simüle eder.
-        
+
         Args:
             input_shape: (C_in, H, W)
             kernel_shape: (C_out, C_in, Kh, Kw)
             precision: 8 veya 4 bit
-        
+            stride, padding: Conv parametreleri
+
         Returns:
             stats: Enerji ve gecikme istatistikleri
         """
+        st = conv_stats(input_shape, kernel_shape, stride, padding)
+        data_elems = st['input_elems'] + st['weight_elems'] + st['output_elems']
+        stats = self.mac_workload(st['total_macs'], data_elems, precision)
+        stats['out_shape'] = st['out_shape']
+        return stats
 
-        C_out, C_in, Kh, Kw = kernel_shape
-        _, H, w = input_shape
-
-        #Her output pixel için gereken MAC sayısı
-
-        macs_per_output = C_in * Kh * Kw
-
-        #Toplam output pixel için gereken MAC sayısı
-        out_H = H - Kh + 1 
-        out_W = w - Kh + 1
-        total_outputs  = C_out * out_H * out_W 
-
-        # Toplam MAC işlemi
-        total_macs = total_outputs * macs_per_output
-         
-        #PIM clusterlara dağıt(parallelization)
-        macs_per_cluster = total_macs // self.num_clusters
-
-
-        #Tek bir mac maliyet hesabı 
-        dummy_cluster = self.clusters[0]
-        _ , mac_energy_pj, mac_latency = dummy_cluster.mac_8bit(128, 128, 0, precision)
-
-        ## Toplam computation cost
-        total_energy_compute_mj = (total_macs * mac_energy_pj) / 1e9  # pJ -> mJ
-
-        # Memory communication cost
-        # Varsayım: Her cluster kendi subarray'inde (intra-subarray comm.)
-        total_comm_energy_mj = (macs_per_cluster * self.intra_subarray_energy_uj) / 1e3
-
-        # Latency (parallelization sayesinde)
-        total_latency_ms = (macs_per_cluster * mac_latency) / 1e6  # ns -> ms
-        return {
-            'precision': precision,
-            'total_macs': total_macs,
-            'latency_ms': total_latency_ms,
-            'energy_compute_mj': total_energy_compute_mj,
-            'energy_communication_mj': total_comm_energy_mj,
-            'energy_total_mj': total_energy_compute_mj + total_comm_energy_mj,
-            'power_mw': (total_energy_compute_mj + total_comm_energy_mj) / (total_latency_ms / 1000),
-        }
-    
-    
     def model_inference(self, layer_configs, precision=8):
         """
         Tüm CNN modelini simüle eder.
-        
+
         Args:
-            layer_configs: Her katmanın (input_shape, kernel_shape) tuple'ları
+            layer_configs: (input_shape, kernel_shape) ya da
+                           (input_shape, kernel_shape, stride, padding) tuple'ları
             precision: 8 veya 4 bit
-        
-        Returns:
-            total_stats: Toplam enerji/gecikme
         """
         total_energy = 0
         total_latency = 0
         total_macs = 0
 
-        for input_shape, kernel_shape in layer_configs:
-            stats = self.convolution_layer(input_shape, kernel_shape, precision)
+        for cfg in layer_configs:
+            input_shape, kernel_shape = cfg[0], cfg[1]
+            stride = cfg[2] if len(cfg) > 2 else 1
+            padding = cfg[3] if len(cfg) > 3 else 0
+            stats = self.convolution_layer(input_shape, kernel_shape, precision, stride, padding)
             total_energy += stats['energy_total_mj']
             total_latency += stats['latency_ms']
             total_macs += stats['total_macs']
-        
+
         return {
             'total_energy_mj': total_energy,
             'total_latency_ms': total_latency,
@@ -296,152 +316,3 @@ class PIMArray:
             'avg_power_mw': total_energy / (total_latency / 1000) if total_latency > 0 else 0,
             'precision': precision
         }
-    
-class HybridSystem:
-    """
-    PIM + GPU Hibrit Sistemi
-    - Küçük/tekrarlayan işlemler → PIM (enerji tasarrufu)
-    - Büyük/karmaşık işlemler → GPU (hız)
-    """
-    
-    def __init__(self, pim_cluster, gpu_baseline):
-        self.pim = pim_cluster
-        self.gpu = gpu_baseline
-        self.threshold_size = 1000000  # 1M işlem üstü GPU'ya
-        
-    def adaptive_processing(self, workload_size, data):
-        """
-        İş yükü boyutuna göre otomatik seçim
-        
-        Args:
-            workload_size: İşlem sayısı
-            data: İşlenecek veri
-            
-        Returns:
-            result: İşlem sonucu
-            energy: Harcanan enerji (mJ)
-            latency: Toplam gecikme (ms)
-            decision: "PIM" veya "GPU" veya "HYBRID"
-        """
-        
-        # Küçük iş yükü → Sadece PIM
-        if workload_size < self.threshold_size * 0.1:
-            result = self._process_on_pim(workload_size)
-            decision = "PIM"
-            
-        # Orta iş yükü → Hibrit (paralel)
-        elif workload_size < self.threshold_size:
-            result = self._process_hybrid(workload_size)
-            decision = "HYBRID"
-            
-        # Büyük iş yükü → Sadece GPU
-        else:
-            result = self._process_on_gpu(workload_size)
-            decision = "GPU"
-            
-        return result['energy'], result['latency'], decision
-    
-    def _process_on_pim(self, workload):
-        """Sadece PIM'de işle"""
-        ops_per_core = workload // len(self.pim.cores)
-        
-        # Her core'da paralel işlem
-        total_energy = 0
-        max_latency = 0
-        
-        for core in self.pim.cores:
-            # Basit çarpma örneği
-            _, energy, latency = core.multiply(15, 15)
-            total_energy += energy * ops_per_core
-            max_latency = max(max_latency, latency * ops_per_core)
-        
-        # pJ → mJ, ns → ms
-        return {
-            'energy': total_energy / 1e9,
-            'latency': max_latency / 1e6
-        }
-    
-    def _process_on_gpu(self, workload):
-        """Sadece GPU'da işle"""
-        gpu_result = self.gpu.process(workload)
-        return {
-            'energy': gpu_result['energy'],
-            'latency': gpu_result['latency']
-        }
-    
-    def _process_hybrid(self, workload):
-        """
-        Hibrit işleme: İş yükünü böl
-        - %70 PIM'de (enerji-verimli basit işlemler)
-        - %30 GPU'da (karmaşık işlemler)
-        """
-        pim_workload = int(workload * 0.7)
-        gpu_workload = int(workload * 0.3)
-        
-        pim_result = self._process_on_pim(pim_workload)
-        gpu_result = self._process_on_gpu(gpu_workload)
-        
-        # Paralel çalışma varsayımı (max latency)
-        return {
-            'energy': pim_result['energy'] + gpu_result['energy'],
-            'latency': max(pim_result['latency'], gpu_result['latency'])
-        }
-    
-    def benchmark_comparison(self, workload_sizes=[1000, 100000, 10000000]):
-        """Farklı iş yükleri için karşılaştırma"""
-        results = []
-        
-        for size in workload_sizes:
-            # PIM-only
-            pim_res = self._process_on_pim(size)
-            
-            # GPU-only
-            gpu_res = self._process_on_gpu(size)
-            
-            # Hibrit
-            energy, latency, decision = self.adaptive_processing(size, None)
-            
-            results.append({
-                'workload': size,
-                'pim_energy': pim_res['energy'],
-                'pim_latency': pim_res['latency'],
-                'gpu_energy': gpu_res['energy'],
-                'gpu_latency': gpu_res['latency'],
-                'hybrid_energy': energy,
-                'hybrid_latency': latency,
-                'decision': decision
-            })
-        
-        return results
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
