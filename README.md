@@ -139,6 +139,61 @@ python quantization.py                  # retrain the CNN (digits_cnn.npz)
 
 ---
 
+## 🌍 Carbon-Aware Scheduling: 5G Base Station Scenario
+
+Energy and carbon are not the same thing: the grid's carbon intensity changes during the day,
+and the PIM hardware itself has a manufacturing (embodied) carbon cost. This module asks:
+*how much CO₂ does hybrid PIM save at a base station, and how fast does the chip pay back its own manufacturing carbon?*
+
+**Scenario (one base station):**
+- **Workload:** the digits CNN above (accuracy measured), standing in for a small per-user, per-slot model.
+  Peak load is 120,000 inferences/s, for example 60 users × 2,000 slots/s.
+- **Traffic:** stylized diurnal load, lowest at 04:00 and peaking at 21:00.
+- **Grid:** stylized Türkiye profile, CI(h) = 460 × (1 − solar share(h)) gCO₂/kWh.
+  - The annual mean is ≈ 425 g/kWh; published annual values are 411–428 g/kWh.
+  - Midday solar share is 30 % in summer (the hourly record is 46 %) and 15 % in winter.
+  - Real hourly data can be loaded with `carbon_model.load_profile_csv`.
+- **Decision:** every hour, pick one of the 81 layer-wise device + precision plans.
+- **Constraints:** device utilisation ≤ 0.8, and **daily** average accuracy ≥ INT8 − budget.
+- **Solver:** exact MILP (`scipy.optimize.milp` / HiGHS).
+
+| Strategy | What it knows | Summer g CO₂/day (budget 0.5 pt) |
+|---|---|---|
+| GPU-only | — | 12.80 |
+| Static plan | one plan all day | 1.71 |
+| Hourly energy | per-hour min energy | 1.71 |
+| Daily budget | traffic (can move accuracy loss between hours) | 1.55 |
+| **Carbon-aware** | traffic + hourly grid carbon | **1.52** |
+
+Findings:
+
+- **Most of the saving comes from hardware and precision.** PIM with layer-wise 4-bit cuts CO₂ by **88 %** vs. GPU-only
+  (4.9 → 0.59 kg CO₂ per year per site).
+- **Carbon awareness adds a small, honest extra.** It adds about 2 % on today's grid. It spends the accuracy budget in
+  dirty evening/night hours and runs the more accurate plan in clean midday hours.
+  The gain grows with solar: **≈ 5.5 % at a 75 % midday solar share**. With a constant-intensity grid it is exactly zero; a test checks this.
+- **Embodied carbon pays back fast.** The estimate uses DRAM at ~48 g CO₂/GB × a 1–4× PIM overhead, for 4–16 GB.
+  A whole PIM module pays back in **16–259 days**; counting only the PIM add-on, it pays back in 8–194 days.
+- **Capacity matters.** Above ~180 k inferences/s, PIM alone cannot keep up at peak, so the optimiser moves heavy layers to the GPU
+  and the saving drops (59 % at 240 k/s).
+
+Limitations: the profiles are stylized, not measured. Only dynamic inference energy is counted; idle power of devices present
+in both setups is ignored. The CNN is a proxy for a real RAN model.
+
+<p align="center"><img src="PIM SIMULATOR/carbon_scenario.png" width="900"></p>
+
+```bash
+cd "PIM SIMULATOR"
+python carbon_experiment.py   # ~10 s → carbon_scenario.png, carbon_results.json
+```
+
+Sources: [Climate Analytics – Türkiye power sector carbon intensity](https://1p5ndc-pathways.climateanalytics.org/countries/turkiye/primary-energy-and-sectors/power) ·
+[Ember – solar share record in Türkiye](https://ember-energy.org/latest-insights/solar-surge-meeting-two-thirds-of-the-rise-in-turkiyes-peak-electricity-demand-in-2024/) ·
+[Embodied carbon of LPDDR4 (~48 g/GB)](https://arxiv.org/pdf/2312.06364) ·
+[ACT: Architectural Carbon Modeling Tool](https://ai.meta.com/research/publications/act-designing-sustainable-computer-systems-with-an-architectural-carbon-modeling-tool/)
+
+---
+
 ## 🛠️ Installation & Quick Start
 
 ### Prerequisites
@@ -159,6 +214,7 @@ python visualize_scheduler.py           # regenerate the charts
 python advanced_training.py             # retrain the Q-Learning scheduler
 python demo_simulator.py                # step-by-step demo
 python precision_experiment.py          # layer-wise precision experiment
+python carbon_experiment.py             # carbon-aware 5G base station scenario
 ```
 
 ```
@@ -176,6 +232,9 @@ Green-Tensor-Core/
 │   ├── precision_planner.py        # layer-wise device + precision planner (exhaustive / greedy)
 │   ├── precision_experiment.py     # accuracy/energy/latency experiment, Pareto chart
 │   ├── digits_cnn.npz              # trained CNN weights
+│   ├── carbon_model.py             # grid carbon, traffic profile, embodied carbon
+│   ├── carbon_scheduler.py         # carbon-aware hourly plan selection (MILP)
+│   ├── carbon_experiment.py        # 5G base station scenario, payback, sensitivity
 │   ├── visualize_scheduler.py      # charts generated from results.py
 │   ├── demo_simulator.py           # printed demo walkthrough
 │   └── adaptive_precision.py       # precision/energy trade-off experiments
