@@ -1,0 +1,6364 @@
+{
+  "params": {
+    "peak_rate_per_s": 120000,
+    "rho_max": 0.8,
+    "reference_accuracy": 0.987037037037037
+  },
+  "seasons": {
+    "summer": {
+      "ci": [
+        460.0,
+        460.0,
+        460.0,
+        460.0,
+        460.0,
+        460.0,
+        430.3340792508787,
+        402.05530398468346,
+        376.4859583032604,
+        354.82163639238615,
+        338.0753378664489,
+        327.03010103234726,
+        322.20238888854493,
+        323.8179398892694,
+        331.80121266528283,
+        345.7789182543491,
+        365.09747467822757,
+        388.853567709571,
+        415.93638884123476,
+        445.07957545749605,
+        460.0,
+        460.0,
+        460.0,
+        460.0
+      ],
+      "budgets": {
+        "0.0": {
+          "gpu_only": {
+            "energy_kwh_day": 0.03216266842338407,
+            "co2_kg_day": 0.01279547759358051,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.36174512923728813,
+            "plans": [
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              }
+            ]
+          },
+          "static": {
+            "energy_kwh_day": 0.017660110935083385,
+            "co2_kg_day": 0.007025833515906692,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.34725925423728815,
+            "plans": [
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "hourly_energy": {
+            "energy_kwh_day": 0.016055243730223726,
+            "co2_kg_day": 0.006366704886980404,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.7845120000000001,
+            "plans": [
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "daily_energy": {
+            "energy_kwh_day": 0.016055243730223726,
+            "co2_kg_day": 0.006366704886980404,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.7845120000000001,
+            "plans": [
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "carbon_aware": {
+            "energy_kwh_day": 0.016055243730223726,
+            "co2_kg_day": 0.006366704886980404,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.7845120000000001,
+            "plans": [
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          }
+        },
+        "0.0025": {
+          "gpu_only": {
+            "energy_kwh_day": 0.03216266842338407,
+            "co2_kg_day": 0.01279547759358051,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.36174512923728813,
+            "plans": [
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              }
+            ]
+          },
+          "static": {
+            "energy_kwh_day": 0.0043057102233600006,
+            "co2_kg_day": 0.0017129679031046212,
+            "accuracy": 0.9851851851851852,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "hourly_energy": {
+            "energy_kwh_day": 0.0043057102233600006,
+            "co2_kg_day": 0.0017129679031046212,
+            "accuracy": 0.9851851851851852,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "daily_energy": {
+            "energy_kwh_day": 0.0042196836864,
+            "co2_kg_day": 0.0016805149628410776,
+            "accuracy": 0.9845410628019323,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "carbon_aware": {
+            "energy_kwh_day": 0.0042196836864,
+            "co2_kg_day": 0.0016733956961030212,
+            "accuracy": 0.9845410628019323,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          }
+        },
+        "0.005": {
+          "gpu_only": {
+            "energy_kwh_day": 0.03216266842338407,
+            "co2_kg_day": 0.01279547759358051,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.36174512923728813,
+            "plans": [
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              }
+            ]
+          },
+          "static": {
+            "energy_kwh_day": 0.0043057102233600006,
+            "co2_kg_day": 0.0017129679031046212,
+            "accuracy": 0.9851851851851852,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "hourly_energy": {
+            "energy_kwh_day": 0.0043057102233600006,
+            "co2_kg_day": 0.0017129679031046212,
+            "accuracy": 0.9851851851851852,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "daily_energy": {
+            "energy_kwh_day": 0.00388550367744,
+            "co2_kg_day": 0.0015487616048315278,
+            "accuracy": 0.9820388950823733,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "carbon_aware": {
+            "energy_kwh_day": 0.00388550367744,
+            "co2_kg_day": 0.0015224801021186758,
+            "accuracy": 0.9820388950823733,
+            "max_utilization": 0.5842560000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              }
+            ]
+          }
+        },
+        "0.01": {
+          "gpu_only": {
+            "energy_kwh_day": 0.03216266842338407,
+            "co2_kg_day": 0.01279547759358051,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.36174512923728813,
+            "plans": [
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              }
+            ]
+          },
+          "static": {
+            "energy_kwh_day": 0.00331640504832,
+            "co2_kg_day": 0.0013193863745510378,
+            "accuracy": 0.9777777777777777,
+            "max_utilization": 0.5842560000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "hourly_energy": {
+            "energy_kwh_day": 0.00331640504832,
+            "co2_kg_day": 0.0013193863745510378,
+            "accuracy": 0.9777777777777777,
+            "max_utilization": 0.5842560000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "daily_energy": {
+            "energy_kwh_day": 0.00331508126208,
+            "co2_kg_day": 0.001318777432880638,
+            "accuracy": 0.9770717205499814,
+            "max_utilization": 0.5842560000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM4"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM4"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "carbon_aware": {
+            "energy_kwh_day": 0.00331505803776,
+            "co2_kg_day": 0.001318766749693438,
+            "accuracy": 0.9770593335810727,
+            "max_utilization": 0.5842560000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM4"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM4"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM4"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "winter": {
+      "ci": [
+        460.0,
+        460.0,
+        460.0,
+        460.0,
+        460.0,
+        460.0,
+        460.0,
+        460.0,
+        437.59573662487685,
+        417.6193228244129,
+        402.23551299988554,
+        393.1113816501862,
+        391.2356699825398,
+        396.811640460801,
+        409.2350501635539,
+        427.1596298804419,
+        448.64297327062934,
+        460.0,
+        460.0,
+        460.0,
+        460.0,
+        460.0,
+        460.0,
+        460.0
+      ],
+      "budgets": {
+        "0.0": {
+          "gpu_only": {
+            "energy_kwh_day": 0.03216266842338407,
+            "co2_kg_day": 0.01412236030283556,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.36174512923728813,
+            "plans": [
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              }
+            ]
+          },
+          "static": {
+            "energy_kwh_day": 0.017660110935083385,
+            "co2_kg_day": 0.0077544078846382095,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.34725925423728815,
+            "plans": [
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "hourly_energy": {
+            "energy_kwh_day": 0.016055243730223726,
+            "co2_kg_day": 0.00704412917938225,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.7845120000000001,
+            "plans": [
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "daily_energy": {
+            "energy_kwh_day": 0.016055243730223726,
+            "co2_kg_day": 0.00704412917938225,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.7845120000000001,
+            "plans": [
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "carbon_aware": {
+            "energy_kwh_day": 0.016055243730223726,
+            "co2_kg_day": 0.00704412917938225,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.7845120000000001,
+            "plans": [
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "GPU",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM8",
+                "conv2": "PIM8",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          }
+        },
+        "0.0025": {
+          "gpu_only": {
+            "energy_kwh_day": 0.03216266842338407,
+            "co2_kg_day": 0.01412236030283556,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.36174512923728813,
+            "plans": [
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              }
+            ]
+          },
+          "static": {
+            "energy_kwh_day": 0.0043057102233600006,
+            "co2_kg_day": 0.00189060156120885,
+            "accuracy": 0.9851851851851852,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "hourly_energy": {
+            "energy_kwh_day": 0.0043057102233600006,
+            "co2_kg_day": 0.00189060156120885,
+            "accuracy": 0.9851851851851852,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "daily_energy": {
+            "energy_kwh_day": 0.0042196836864,
+            "co2_kg_day": 0.0018543933458310899,
+            "accuracy": 0.9845410628019323,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "carbon_aware": {
+            "energy_kwh_day": 0.0042196836864,
+            "co2_kg_day": 0.0018510293542072502,
+            "accuracy": 0.9845410628019323,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          }
+        },
+        "0.005": {
+          "gpu_only": {
+            "energy_kwh_day": 0.03216266842338407,
+            "co2_kg_day": 0.01412236030283556,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.36174512923728813,
+            "plans": [
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              }
+            ]
+          },
+          "static": {
+            "energy_kwh_day": 0.0043057102233600006,
+            "co2_kg_day": 0.00189060156120885,
+            "accuracy": 0.9851851851851852,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "hourly_energy": {
+            "energy_kwh_day": 0.0043057102233600006,
+            "co2_kg_day": 0.00189060156120885,
+            "accuracy": 0.9851851851851852,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "daily_energy": {
+            "energy_kwh_day": 0.00388550367744,
+            "co2_kg_day": 0.001705708703577236,
+            "accuracy": 0.9820388950823733,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "carbon_aware": {
+            "energy_kwh_day": 0.00388550367744,
+            "co2_kg_day": 0.0016973065500856502,
+            "accuracy": 0.9820388950823733,
+            "max_utilization": 0.6334080000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM8",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              }
+            ]
+          }
+        },
+        "0.01": {
+          "gpu_only": {
+            "energy_kwh_day": 0.03216266842338407,
+            "co2_kg_day": 0.01412236030283556,
+            "accuracy": 0.987037037037037,
+            "max_utilization": 0.36174512923728813,
+            "plans": [
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              },
+              {
+                "conv1": "GPU",
+                "conv2": "GPU",
+                "fc1": "GPU",
+                "fc2": "GPU"
+              }
+            ]
+          },
+          "static": {
+            "energy_kwh_day": 0.00331640504832,
+            "co2_kg_day": 0.0014562058839765238,
+            "accuracy": 0.9777777777777777,
+            "max_utilization": 0.5842560000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "hourly_energy": {
+            "energy_kwh_day": 0.00331640504832,
+            "co2_kg_day": 0.0014562058839765238,
+            "accuracy": 0.9777777777777777,
+            "max_utilization": 0.5842560000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "daily_energy": {
+            "energy_kwh_day": 0.00331508126208,
+            "co2_kg_day": 0.0014555969423061237,
+            "accuracy": 0.9770717205499814,
+            "max_utilization": 0.5842560000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM4"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM4"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              }
+            ]
+          },
+          "carbon_aware": {
+            "energy_kwh_day": 0.00331505803776,
+            "co2_kg_day": 0.0014555862591189234,
+            "accuracy": 0.9770593335810727,
+            "max_utilization": 0.5842560000000001,
+            "plans": [
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM4"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM4"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM8"
+              },
+              {
+                "conv1": "PIM4",
+                "conv2": "PIM4",
+                "fc1": "PIM4",
+                "fc2": "PIM4"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "annual_kg": {
+    "gpu_only": 4.912505416095932,
+    "static": 0.6576514272372085,
+    "hourly_energy": 0.6576514272372085,
+    "daily_energy": 0.5939408312845994,
+    "carbon_aware": 0.5876110640272896
+  },
+  "payback_full_module": [
+    {
+      "capacity_gb": 4,
+      "overhead": 1.0,
+      "embodied_kg": 0.192,
+      "payback_days": 16.203864024211363
+    },
+    {
+      "capacity_gb": 4,
+      "overhead": 2.0,
+      "embodied_kg": 0.384,
+      "payback_days": 32.407728048422726
+    },
+    {
+      "capacity_gb": 4,
+      "overhead": 4.0,
+      "embodied_kg": 0.768,
+      "payback_days": 64.81545609684545
+    },
+    {
+      "capacity_gb": 8,
+      "overhead": 1.0,
+      "embodied_kg": 0.384,
+      "payback_days": 32.407728048422726
+    },
+    {
+      "capacity_gb": 8,
+      "overhead": 2.0,
+      "embodied_kg": 0.768,
+      "payback_days": 64.81545609684545
+    },
+    {
+      "capacity_gb": 8,
+      "overhead": 4.0,
+      "embodied_kg": 1.536,
+      "payback_days": 129.6309121936909
+    },
+    {
+      "capacity_gb": 16,
+      "overhead": 1.0,
+      "embodied_kg": 0.768,
+      "payback_days": 64.81545609684545
+    },
+    {
+      "capacity_gb": 16,
+      "overhead": 2.0,
+      "embodied_kg": 1.536,
+      "payback_days": 129.6309121936909
+    },
+    {
+      "capacity_gb": 16,
+      "overhead": 4.0,
+      "embodied_kg": 3.072,
+      "payback_days": 259.2618243873818
+    }
+  ],
+  "payback_pim_addon": [
+    {
+      "capacity_gb": 4,
+      "overhead": 1.5,
+      "embodied_kg": 0.096,
+      "payback_days": 8.101932012105681
+    },
+    {
+      "capacity_gb": 4,
+      "overhead": 2.0,
+      "embodied_kg": 0.192,
+      "payback_days": 16.203864024211363
+    },
+    {
+      "capacity_gb": 4,
+      "overhead": 4.0,
+      "embodied_kg": 0.576,
+      "payback_days": 48.61159207263409
+    },
+    {
+      "capacity_gb": 8,
+      "overhead": 1.5,
+      "embodied_kg": 0.192,
+      "payback_days": 16.203864024211363
+    },
+    {
+      "capacity_gb": 8,
+      "overhead": 2.0,
+      "embodied_kg": 0.384,
+      "payback_days": 32.407728048422726
+    },
+    {
+      "capacity_gb": 8,
+      "overhead": 4.0,
+      "embodied_kg": 1.152,
+      "payback_days": 97.22318414526818
+    },
+    {
+      "capacity_gb": 16,
+      "overhead": 1.5,
+      "embodied_kg": 0.384,
+      "payback_days": 32.407728048422726
+    },
+    {
+      "capacity_gb": 16,
+      "overhead": 2.0,
+      "embodied_kg": 0.768,
+      "payback_days": 64.81545609684545
+    },
+    {
+      "capacity_gb": 16,
+      "overhead": 4.0,
+      "embodied_kg": 2.304,
+      "payback_days": 194.44636829053636
+    }
+  ],
+  "daily_saving_kg": 0.011849025622105871,
+  "solar_sensitivity": [
+    {
+      "solar_peak_share": 0.15,
+      "ci_mean": 433.48687256695797,
+      "0.0025": 0.001965795995208408,
+      "0.005": 0.007877927976650878,
+      "0.01": 7.513543305970316e-06
+    },
+    {
+      "solar_peak_share": 0.3,
+      "ci_mean": 406.9737451339158,
+      "0.0025": 0.0042363602202152295,
+      "0.005": 0.0169693661250796,
+      "0.01": 8.100826518253612e-06
+    },
+    {
+      "solar_peak_share": 0.45,
+      "ci_mean": 380.4606177008738,
+      "0.0025": 0.0068885232684188225,
+      "0.005": 0.02757810455435039,
+      "0.01": 8.787702171053624e-06
+    },
+    {
+      "solar_peak_share": 0.6,
+      "ci_mean": 353.94749026783165,
+      "0.0025": 0.010027309751924895,
+      "0.005": 0.04011856640952005,
+      "0.01": 9.601850898821596e-06
+    },
+    {
+      "solar_peak_share": 0.75,
+      "ci_mean": 327.4343628347896,
+      "0.0025": 0.013800177318771811,
+      "0.005": 0.0551712146847666,
+      "0.01": 0.0
+    }
+  ],
+  "load_sensitivity": [
+    {
+      "peak_rate": 30000,
+      "gpu_only": 0.0031988693983951277,
+      "static": 0.0004282419757761553,
+      "hourly_energy": 0.0004282419757761553,
+      "daily_energy": 0.00038912513976000943,
+      "carbon_aware": 0.00038062002552966895
+    },
+    {
+      "peak_rate": 60000,
+      "gpu_only": 0.006397738796790255,
+      "static": 0.0008564839515523106,
+      "hourly_energy": 0.0008564839515523106,
+      "daily_energy": 0.0007782502795200189,
+      "carbon_aware": 0.0007612400510593379
+    },
+    {
+      "peak_rate": 120000,
+      "gpu_only": 0.01279547759358051,
+      "static": 0.0017129679031046212,
+      "hourly_energy": 0.0017129679031046212,
+      "daily_energy": 0.0015487616048315278,
+      "carbon_aware": 0.0015224801021186758
+    },
+    {
+      "peak_rate": 180000,
+      "gpu_only": 0.019193216390370766,
+      "static": 0.01038956966264082,
+      "hourly_energy": 0.005336825412421558,
+      "daily_energy": 0.003562779859851851,
+      "carbon_aware": 0.0035392948517666287
+    },
+    {
+      "peak_rate": 240000,
+      "gpu_only": 0.02559095518716102,
+      "static": 0.01385275955018776,
+      "hourly_energy": 0.011854363936328213,
+      "daily_energy": 0.010557735660545367,
+      "carbon_aware": 0.010553895443733363
+    }
+  ]
+}
