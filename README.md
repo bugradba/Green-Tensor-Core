@@ -194,6 +194,51 @@ Sources: [Climate Analytics – Türkiye power sector carbon intensity](https://
 
 ---
 
+## 🎲 Under Uncertainty: Dynamic Programming vs. Q-Learning
+
+The carbon-aware scheduler above sees the whole day in advance. In reality the hour's traffic is only known when
+the hour starts, and the daily accuracy budget spent in the morning is gone in the evening. That makes this a real
+sequential decision problem, which is exactly where reinforcement learning is supposed to help. So it was tested.
+
+**Setup:**
+- **Traffic:** each hour's traffic = forecast × log-normal noise (σ = 0.25).
+- **Weather:** day cloudiness is known from the morning forecast and scales the solar share.
+- **Actions:** the 28 Pareto-optimal plans (energy, latency, accuracy).
+- **Constraints:** capacity and the daily budget are enforced by masking for every policy, so no policy can violate them.
+  Policies differ only in CO₂.
+- **Evaluation:** 200 test days, the same for every policy.
+
+| Policy | Knows | Extra CO₂ vs. oracle | Cost |
+|---|---|---|---|
+| Oracle | the whole day in advance (unreachable) | — | MILP per day |
+| **Stochastic DP** | noise distribution | **+1.7 %** | 0.2 s to solve, 0.02 ms per decision |
+| MPC | re-solves a MILP every hour | +2.1 % | 26 ms per decision |
+| Open-loop MILP | morning forecast only | +5.9 % (p90 +27 %) | 1.4 ms per decision |
+| Myopic | per-hour budget | +17.4 % | — |
+| Q-Learning (tabular) | nothing, learns from simulation | +36.6 % after 300,000 simulated days | 209 s training |
+
+Findings:
+
+- **Adapting to the hour matters.** Planning once in the morning gives +5.9 % on average, but +27 % on bad days.
+  Re-planning (MPC) or a DP policy keeps the gap at ~2 %, and the gap grows with uncertainty (σ sweep in the chart).
+- **Model-based DP beats model-free Q-Learning by a wide margin here.** Even after 300,000 simulated days (~800 years of experience),
+  Q-Learning is still worse than the simple myopic rule. The reason is visible in its decisions: it burns the
+  accuracy budget on cheap 4-bit plans in the afternoon and is then forced onto expensive GPU plans at the evening peak.
+  That is a long-horizon credit-assignment problem that tabular Q-Learning learns very slowly.
+- **Practical conclusion:** when a simulator or forecast model exists, as it does here, DP/MPC should be the default scheduler.
+  RL is only worth considering when the dynamics are unknown and cannot be modelled. Even then it should be compared against these baselines.
+  The original per-layer Q-Learning scheduler in `Q_Learning/` is kept for reference; this experiment is the evidence for preferring DP.
+
+<p align="center"><img src="PIM SIMULATOR/stochastic_comparison.png" width="900"></p>
+
+```bash
+cd "PIM SIMULATOR"
+python stochastic_experiment.py           # ~11 min → stochastic_comparison.png, stochastic_results.json
+python stochastic_experiment.py --quick   # ~1 min
+```
+
+---
+
 ## 🛠️ Installation & Quick Start
 
 ### Prerequisites
@@ -215,6 +260,7 @@ python advanced_training.py             # retrain the Q-Learning scheduler
 python demo_simulator.py                # step-by-step demo
 python precision_experiment.py          # layer-wise precision experiment
 python carbon_experiment.py             # carbon-aware 5G base station scenario
+python stochastic_experiment.py --quick # DP vs. Q-Learning under uncertainty
 ```
 
 ```
@@ -235,6 +281,8 @@ Green-Tensor-Core/
 │   ├── carbon_model.py             # grid carbon, traffic profile, embodied carbon
 │   ├── carbon_scheduler.py         # carbon-aware hourly plan selection (MILP)
 │   ├── carbon_experiment.py        # 5G base station scenario, payback, sensitivity
+│   ├── stochastic_scheduler.py     # uncertain days: oracle, myopic, open-loop, MPC, stochastic DP, Q-Learning
+│   ├── stochastic_experiment.py    # DP vs. Q-Learning comparison
 │   ├── visualize_scheduler.py      # charts generated from results.py
 │   ├── demo_simulator.py           # printed demo walkthrough
 │   └── adaptive_precision.py       # precision/energy trade-off experiments
